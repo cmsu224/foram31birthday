@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<title>Sounds of Divyansh — for Mamma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#07080c;
+  --cream:#f7f2ea; --dim:rgba(247,242,234,.55);
+  --gold:#e9ba50; --gold2:#ffd98a;
+  --cyan:#7fdcff;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --hand:"Caveat","Segoe Script",cursive;
+  --pad:clamp(18px,4.5vw,54px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--ink)}
+body{color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;overflow:hidden;isolation:isolate}
+#photoWrap{position:absolute;inset:-3%;animation:kb 78s ease-in-out infinite alternate}
+#photo{position:absolute;inset:0;background-size:cover;background-position:50% 44%;
+  filter:grayscale(1) contrast(1.07) brightness(.40);
+  transition:filter 2s cubic-bezier(.22,.7,.25,1)}
+body.finale #photo{filter:grayscale(.55) contrast(1.02) brightness(.76)}
+body.board  #photo{filter:grayscale(.85) contrast(1.05) brightness(.22)}
+@keyframes kb{from{transform:scale(1.01) translate3d(0,0,0)}to{transform:scale(1.09) translate3d(-1.2%,-1.6%,0)}}
+
+#warm{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:0;
+  transition:opacity 2.4s ease;
+  background:radial-gradient(90% 70% at 50% 40%, #ffcf7a 0%, #c9762a 55%, transparent 100%)}
+body.finale #warm{opacity:.95}
+body.board  #warm{opacity:.35}
+
+#scrim{position:absolute;inset:0;pointer-events:none;transition:background 2s ease;
+  background:
+    radial-gradient(125% 95% at 50% 28%, transparent 0%, rgba(7,8,12,.42) 52%, rgba(7,8,12,.92) 100%),
+    linear-gradient(to top, rgba(7,8,12,.97) 0%, rgba(7,8,12,.72) 26%, rgba(7,8,12,.10) 58%, transparent 74%)}
+body.finale #scrim{background:
+    radial-gradient(75% 62% at 50% 50%, rgba(7,8,12,.62) 0%, rgba(7,8,12,.30) 70%, transparent 100%),
+    radial-gradient(130% 100% at 50% 30%, transparent 0%, rgba(7,8,12,.26) 52%, rgba(7,8,12,.88) 100%),
+    linear-gradient(to top, rgba(7,8,12,.94) 0%, rgba(7,8,12,.55) 28%, transparent 68%)}
+body.board #scrim{background:linear-gradient(180deg, rgba(7,8,12,.86) 0%, rgba(7,8,12,.93) 40%, rgba(7,8,12,.97) 100%)}
+#grain{position:absolute;inset:0;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vig{position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 clamp(80px,18vw,260px) rgba(0,0,0,.75)}
+
+/* ---------- layers ---------- */
+/* every layer is stacked full-bleed, so an inactive one must not swallow taps */
+.layer{position:absolute;inset:0;display:flex;pointer-events:none;opacity:0;visibility:hidden;
+  transition:opacity .7s ease,visibility 0s linear .7s}
+.layer.on{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+
+/* ---------- title ---------- */
+#title{flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:var(--pad)}
+#title .kick{font-size:clamp(10px,2.6vw,13px);letter-spacing:.42em;text-transform:uppercase;
+  color:var(--gold);opacity:.9;margin-bottom:18px}
+#title h1{font-family:var(--disp);font-weight:300;font-size:clamp(52px,15vw,132px);
+  line-height:.92;letter-spacing:-.02em;
+  background:linear-gradient(180deg,#fffaf1 0%,#e9d9bd 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+#title .sub{margin-top:22px;font-size:clamp(13px,3.2vw,16px);color:var(--dim);
+  letter-spacing:.02em;max-width:40ch;line-height:1.6}
+#go{margin-top:clamp(30px,6vw,48px);width:clamp(84px,20vw,104px);height:clamp(84px,20vw,104px);
+  border-radius:50%;border:1px solid rgba(233,186,80,.55);background:rgba(233,186,80,.07);
+  color:var(--gold2);display:grid;place-items:center;cursor:pointer;position:relative;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease,border-color .3s ease}
+#go:hover{transform:scale(1.06);background:rgba(233,186,80,.16);border-color:var(--gold)}
+#go:active{transform:scale(.97)}
+#go svg{width:34%;height:34%;margin-left:12%;fill:currentColor;filter:drop-shadow(0 0 12px rgba(233,186,80,.5))}
+#go::before,#go::after{content:"";position:absolute;inset:-1px;border-radius:50%;
+  border:1px solid rgba(233,186,80,.5);animation:ring 3.2s ease-out infinite}
+#go::after{animation-delay:1.6s}
+@keyframes ring{0%{transform:scale(1);opacity:.65}100%{transform:scale(1.75);opacity:0}}
+#hint{margin-top:26px;font-size:clamp(10px,2.6vw,11.5px);letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(247,242,234,.34)}
+
+/* ---------- chip ---------- */
+#chip{position:absolute;top:calc(var(--pad) + env(safe-area-inset-top));left:var(--pad);
+  display:flex;align-items:center;gap:9px;font-family:var(--mono);
+  font-size:clamp(9.5px,2.4vw,11.5px);letter-spacing:.22em;text-transform:uppercase;
+  padding:8px 14px;border-radius:100px;border:1px solid rgba(247,242,234,.14);
+  background:rgba(10,12,17,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:var(--dim);opacity:0;transition:opacity .6s ease,color .8s ease,border-color .8s ease}
+#chip.on{opacity:1}
+#chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;
+  box-shadow:0 0 10px currentColor;animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+#chip.rec{color:#ff7a6e}
+#chip.live{color:var(--gold2);border-color:rgba(233,186,80,.32)}
+
+/* ---------- papa ---------- */
+#papa{flex-direction:column;align-items:center;justify-content:flex-end;
+  padding:0 var(--pad) calc(var(--pad) + 74px + env(safe-area-inset-bottom))}
+#dir{font-family:var(--disp);font-style:italic;font-weight:300;
+  font-size:clamp(19px,5vw,34px);color:rgba(247,242,234,.82);text-align:center;
+  line-height:1.45;max-width:22ch;text-shadow:0 2px 30px rgba(0,0,0,.8)}
+#dir span{display:inline-block;opacity:0;transform:translateY(14px);
+  animation:rise .9s cubic-bezier(.2,.75,.25,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+#papa .dots{margin-top:20px;display:flex;gap:7px}
+#papa .dots i{width:5px;height:5px;border-radius:50%;background:var(--dim);
+  animation:bob 1.4s ease-in-out infinite}
+#papa .dots i:nth-child(2){animation-delay:.18s}
+#papa .dots i:nth-child(3){animation-delay:.36s}
+@keyframes bob{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-5px)}}
+
+/* ---------- translator HUD ---------- */
+#boot{flex-direction:column;align-items:center;justify-content:center;padding:var(--pad)}
+#hud{width:min(520px,92vw);border:1px solid rgba(127,220,255,.22);border-radius:14px;
+  background:linear-gradient(180deg,rgba(10,20,28,.78),rgba(8,12,18,.86));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  padding:clamp(18px,4vw,26px);font-family:var(--mono);
+  box-shadow:0 30px 90px rgba(0,0,0,.6);
+  transform:translateY(16px) scale(.97);opacity:0;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
+#boot.on #hud{transform:none;opacity:1}
+#hud .hd{display:flex;align-items:center;gap:10px;font-size:clamp(11px,2.9vw,13.5px);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+#hud .hd .cur{width:8px;height:14px;background:var(--cyan);animation:blink .9s steps(1) infinite}
+#hud .row{display:flex;align-items:baseline;gap:8px;font-size:clamp(10px,2.6vw,12px);
+  color:rgba(127,220,255,.5);letter-spacing:.1em;padding:5px 0;opacity:0;
+  transition:opacity .45s ease,color .45s ease}
+#hud .row.on{opacity:1}
+#hud .row.ok{color:rgba(127,220,255,.92)}
+#hud .row .lead{flex:1;border-bottom:1px dotted rgba(127,220,255,.22);transform:translateY(-3px)}
+#hud .row .st{font-variant-numeric:tabular-nums}
+#hud .bar{margin-top:16px;height:3px;border-radius:2px;background:rgba(127,220,255,.13);overflow:hidden}
+#hud .bar i{display:block;height:100%;width:0%;border-radius:2px;
+  background:linear-gradient(90deg,rgba(127,220,255,.5),var(--cyan));
+  box-shadow:0 0 14px rgba(127,220,255,.7);transition:width .18s linear}
+#scan{position:absolute;left:0;right:0;height:180px;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(127,220,255,.10) 46%,rgba(127,220,255,.5) 50%,rgba(127,220,255,.10) 54%,transparent)}
+#boot.on #scan{opacity:1;animation:scan 1.5s cubic-bezier(.4,0,.5,1) infinite}
+@keyframes scan{0%{transform:translateY(-190px)}100%{transform:translateY(100vh)}}
+#brackets{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .6s ease}
+#boot.on #brackets{opacity:.5}
+#brackets path{fill:none;stroke:var(--cyan);stroke-width:1.2;vector-effect:non-scaling-stroke;
+  stroke-dasharray:120;stroke-dashoffset:120;animation:draw 1s ease forwards .15s}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ---------- transcript ---------- */
+#talk{flex-direction:column;align-items:center;justify-content:flex-end;
+  padding:0 var(--pad) calc(var(--pad) + 92px + env(safe-area-inset-bottom))}
+#feed{width:min(880px,100%);display:flex;flex-direction:column;align-items:center}
+/* the script accumulates: the newest line is big at the bottom and the ones
+   before it shrink and drift upward, so the whole message ends up on screen */
+#cap{width:100%;height:min(58vh,520px);display:flex;flex-direction:column;
+  justify-content:flex-end;align-items:center;gap:10px}
+#cap .line{margin:0 auto;max-width:22ch;
+  font-family:var(--disp);font-weight:400;text-align:center;line-height:1.32;
+  font-size:clamp(22px,5.6vw,46px);letter-spacing:-.012em;color:#fffaf0;
+  text-shadow:0 3px 40px rgba(0,0,0,.9),0 0 70px rgba(233,186,80,.16);
+  will-change:opacity,transform,filter,font-size;
+  animation:capIn 1.05s cubic-bezier(.19,.72,.24,1) both;
+  transition:font-size .9s cubic-bezier(.3,.7,.25,1),
+             color .9s ease, max-width .9s ease, opacity .9s ease}
+#cap .line.past{font-size:clamp(12.5px,3vw,20px);max-width:42ch;
+  color:rgba(247,242,234,.44);text-shadow:0 2px 20px rgba(0,0,0,.95)}
+#cap .line.past.old{color:rgba(247,242,234,.26)}
+@keyframes capIn{
+  from{opacity:0;transform:translateY(26px) scale(.985);filter:blur(7px)}
+  to  {opacity:1;transform:none;filter:blur(0)}}
+#cap .em{display:inline-block}
+#raw{margin-top:clamp(10px,2.4vw,16px);font-family:var(--mono);
+  font-size:clamp(9.5px,2.4vw,12px);letter-spacing:.3em;color:rgba(233,186,80,.34);
+  height:1.4em;white-space:nowrap;overflow:hidden;transition:opacity .5s ease}
+
+/* ---------- waveform ---------- */
+#waveWrap{position:absolute;left:var(--pad);right:var(--pad);
+  bottom:calc(var(--pad) + env(safe-area-inset-bottom));height:56px;opacity:0;
+  transition:opacity .7s ease;pointer-events:none}
+#waveWrap.on{opacity:1}
+#wave{width:100%;height:100%;display:block}
+#timeRow{position:absolute;left:0;right:0;bottom:-4px;display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(247,242,234,.22)}
+
+/* ---------- finale ---------- */
+#end{flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:var(--pad)}
+#endH{font-family:var(--disp);font-weight:500;font-size:clamp(30px,8.2vw,74px);
+  line-height:1.08;letter-spacing:-.02em;max-width:15ch;
+  background:linear-gradient(175deg,#fff8ea 0%,var(--gold2) 55%,#dda63c 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 40px rgba(0,0,0,.7))}
+#endH span{display:inline-block;opacity:0;transform:translateY(26px) rotate(2deg);
+  transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+#end.on #endH span{opacity:1;transform:none}
+#end .cake{margin-top:16px;font-size:clamp(24px,6vw,40px);opacity:0;transform:scale(.5);
+  transition:opacity .6s ease,transform .8s cubic-bezier(.2,1.5,.4,1)}
+#end.on .cake{opacity:1;transform:none;transition-delay:1.15s}
+#end .rule{margin:clamp(20px,4vw,30px) 0;width:64px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(233,186,80,.7),transparent);
+  opacity:0;transition:opacity .8s ease .95s}
+#end.on .rule{opacity:1}
+#end .love{font-size:clamp(11px,2.8vw,13px);letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(247,242,234,.62);text-shadow:0 2px 18px rgba(0,0,0,.9);
+  opacity:0;transition:opacity .9s ease 1.25s}
+#end.on .love{opacity:1}
+#end .name{font-family:var(--hand);font-size:clamp(44px,11vw,86px);line-height:1;
+  margin-top:8px;color:var(--gold2);opacity:0;transform:translateY(12px);
+  text-shadow:0 4px 34px rgba(0,0,0,.6);
+  transition:opacity 1s ease 1.45s,transform 1.1s cubic-bezier(.2,.8,.2,1) 1.45s}
+#end.on .name{opacity:1;transform:none}
+#end .name .hb{font-style:normal;font-size:.42em;vertical-align:.42em;margin-left:.18em}
+#ps{margin-top:clamp(24px,5vw,36px);font-family:var(--disp);font-style:italic;font-weight:300;
+  font-size:clamp(14px,3.6vw,21px);color:rgba(247,242,234,.6);
+  opacity:0;transform:translateY(10px);
+  transition:opacity 1.4s ease 3.1s,transform 1.4s cubic-bezier(.2,.8,.2,1) 3.1s}
+#end.on #ps{opacity:1;transform:none}
+#endBtns{margin-top:clamp(26px,5.5vw,42px);display:flex;flex-wrap:wrap;gap:12px;
+  justify-content:center;opacity:0;transition:opacity .9s ease 4.3s}
+#end.on #endBtns{opacity:1}
+/* coming back from the soundboard, do not replay the 4 s reveal stagger */
+body.quick #end *{transition-delay:0s !important}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;cursor:pointer;
+  color:rgba(247,242,234,.45);background:rgba(247,242,234,.03);
+  border:1px solid rgba(247,242,234,.14);border-radius:100px;padding:12px 22px;
+  transition:color .25s ease,border-color .25s ease,background .25s ease,transform .25s ease}
+.btn:hover{color:var(--cream);border-color:rgba(247,242,234,.4);background:rgba(247,242,234,.07)}
+.btn:active{transform:scale(.97)}
+.btn.gold{color:var(--gold2);border-color:rgba(233,186,80,.4);background:rgba(233,186,80,.08)}
+.btn.gold:hover{border-color:var(--gold);background:rgba(233,186,80,.16)}
+#parts{position:absolute;inset:0;pointer-events:none}
+
+/* ---------- Sounds of Divyansh ---------- */
+#board{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .8s ease,visibility 0s linear .8s}
+#board.on{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+#bwrap{max-width:1080px;margin:0 auto;
+  padding:calc(var(--pad) + 18px + env(safe-area-inset-top)) var(--pad)
+          calc(var(--pad) + 96px + env(safe-area-inset-bottom))}
+#bhead{text-align:center;margin-bottom:clamp(26px,5vw,44px)}
+#bhead .kick{font-size:clamp(10px,2.6vw,12px);letter-spacing:.42em;text-transform:uppercase;
+  color:var(--gold);opacity:.85;margin-bottom:10px}
+#bhead h2{font-family:var(--disp);font-weight:300;font-size:clamp(40px,11vw,84px);
+  line-height:.95;letter-spacing:-.02em;
+  background:linear-gradient(180deg,#fffaf1 0%,#e5cf9e 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+#bhead p{margin:16px auto 0;max-width:38ch;font-size:clamp(13px,3.2vw,15px);
+  line-height:1.6;color:var(--dim)}
+/* full-bleed so the sticky bar has no visible box edge on wide screens */
+#bbar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:9px;
+  align-items:center;justify-content:center;
+  padding:14px var(--pad) 18px;
+  margin:0 calc(50% - 50vw) clamp(14px,3vw,24px);
+  background:linear-gradient(180deg,rgba(7,8,12,.97) 0%,rgba(7,8,12,.92) 55%,transparent 100%)}
+#bbar .btn{padding:10px 18px;font-size:10.5px}
+#bbar .btn.act{color:var(--gold2);border-color:rgba(233,186,80,.5);background:rgba(233,186,80,.14)}
+#bcount{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+  color:rgba(247,242,234,.3);margin-left:4px}
+.sec{margin-bottom:clamp(30px,6vw,52px)}
+.sec h3{display:flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:500;
+  font-size:clamp(19px,4.6vw,28px);letter-spacing:-.01em;color:#fdf6e8}
+.sec h3 .pl{flex:none;width:32px;height:32px;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(233,186,80,.35);background:rgba(233,186,80,.08);color:var(--gold2);
+  display:grid;place-items:center;font-size:11px;transition:background .25s ease,transform .2s ease}
+.sec h3 .pl:hover{background:rgba(233,186,80,.2)}
+.sec h3 .pl:active{transform:scale(.92)}
+.sec .note{margin:6px 0 18px;font-size:clamp(12px,3vw,14px);color:rgba(247,242,234,.4);
+  font-style:italic;font-family:var(--disp);font-weight:300}
+.grid{display:grid;gap:clamp(8px,1.8vw,12px);
+  grid-template-columns:repeat(auto-fill,minmax(clamp(88px,22vw,124px),1fr))}
+.tile{position:relative;border-radius:12px;cursor:pointer;overflow:hidden;
+  border:1px solid rgba(247,242,234,.09);background:rgba(247,242,234,.035);
+  padding:10px 10px 8px;display:flex;flex-direction:column;gap:6px;
+  transition:border-color .25s ease,background .25s ease,transform .2s cubic-bezier(.2,.8,.2,1)}
+.tile:hover{border-color:rgba(247,242,234,.24);background:rgba(247,242,234,.07)}
+.tile:active{transform:scale(.97)}
+.tile.now{border-color:rgba(233,186,80,.75);background:rgba(233,186,80,.13);
+  box-shadow:0 0 0 1px rgba(233,186,80,.25),0 10px 34px rgba(233,186,80,.14)}
+.tile svg{width:100%;height:clamp(30px,7vw,40px);display:block;overflow:visible}
+.tile svg path{stroke:rgba(247,242,234,.34);stroke-width:2;stroke-linecap:round;fill:none;
+  transition:stroke .25s ease}
+.tile.now svg path{stroke:var(--gold2)}
+.tile .meta{display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:rgba(247,242,234,.3)}
+.tile.now .meta{color:rgba(255,217,138,.75)}
+.tile .fav{position:absolute;top:5px;right:5px;width:26px;height:26px;border:0;padding:0;
+  background:none;cursor:pointer;color:rgba(247,242,234,.2);font-size:13px;line-height:26px;
+  transition:color .2s ease,transform .2s cubic-bezier(.2,1.6,.4,1)}
+.tile .fav:hover{color:rgba(247,242,234,.5)}
+.tile.fav .fav{color:var(--gold2);text-shadow:0 0 14px rgba(233,186,80,.7)}
+.tile.fav{border-color:rgba(233,186,80,.3)}
+.tile .fav:active{transform:scale(1.35)}
+/* the two dinner recordings, whole */
+.full{display:flex;align-items:center;gap:clamp(12px,2.6vw,18px);
+  padding:clamp(12px,2.6vw,16px) clamp(13px,2.8vw,18px);border-radius:14px;
+  border:1px solid rgba(247,242,234,.09);background:rgba(247,242,234,.035);
+  margin-bottom:10px;transition:border-color .25s ease,background .25s ease}
+.full:hover{border-color:rgba(247,242,234,.2);background:rgba(247,242,234,.06)}
+.full.now{border-color:rgba(233,186,80,.6);background:rgba(233,186,80,.11)}
+.full .fplay{flex:none;width:clamp(38px,9vw,46px);height:clamp(38px,9vw,46px);
+  border-radius:50%;cursor:pointer;font-size:12px;
+  border:1px solid rgba(233,186,80,.4);background:rgba(233,186,80,.1);color:var(--gold2);
+  display:grid;place-items:center;transition:background .25s ease,transform .2s ease}
+.full .fplay:hover{background:rgba(233,186,80,.22)}
+.full .fplay:active{transform:scale(.93)}
+.full .fbody{flex:1;min-width:0}
+.full .ftitle{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  font-family:var(--disp);font-weight:400;font-size:clamp(15px,3.6vw,20px);color:#fdf6e8}
+.full .ftitle time{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  color:rgba(247,242,234,.34);flex:none;font-variant-numeric:tabular-nums}
+.full.now .ftitle time{color:rgba(255,217,138,.8)}
+.full .fbar{margin-top:9px;height:4px;border-radius:3px;cursor:pointer;
+  background:rgba(247,242,234,.1);overflow:hidden}
+.full .fbar i{display:block;height:100%;width:0%;border-radius:3px;
+  background:linear-gradient(90deg,rgba(233,186,80,.55),var(--gold2));
+  box-shadow:0 0 12px rgba(233,186,80,.5)}
+#bfoot{text-align:center;margin-top:clamp(20px,4vw,34px)}
+#bempty{display:none;text-align:center;padding:40px 0;color:rgba(247,242,234,.35);
+  font-family:var(--disp);font-style:italic;font-size:clamp(15px,3.6vw,19px)}
+#board.favs #bempty.show{display:block}
+
+@media (max-width:520px){
+  #papa{padding-bottom:calc(var(--pad) + 66px + env(safe-area-inset-bottom))}
+  #talk{padding-bottom:calc(var(--pad) + 80px + env(safe-area-inset-bottom))}
+  #cap{height:clamp(140px,30vh,210px)}
+  #waveWrap{height:44px}
+  #chip{left:50%;transform:translateX(-50%)}
+}
+@media (prefers-reduced-motion:reduce){
+  #photoWrap{animation:none}
+  #go::before,#go::after{animation:none;opacity:0}
+  #boot.on #scan{animation:none;opacity:0}
+  #cap .line{animation-duration:.35s}
+}
+@media (min-aspect-ratio:27/20){#photo{background-image:url(photo-wide.jpg)}}@media (min-aspect-ratio:4/5) and (max-aspect-ratio:27/20){#photo{background-image:url(photo-sq.jpg)}}@media (max-aspect-ratio:4/5){#photo{background-image:url(photo-tall.jpg)}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="photoWrap"><div id="photo"></div></div>
+  <div id="warm"></div>
+  <div id="scrim"></div>
+  <div id="grain"></div>
+  <div id="vig"></div>
+  <canvas id="parts"></canvas>
+
+  <div id="chip"><i class="dot"></i><b id="chipTxt">rec</b></div>
+
+  <div class="layer on" id="title">
+    <div class="kick">A message for</div>
+    <h1>Foram</h1>
+    <div class="sub">Recorded by Divyansh, one month old.<br>Translated live, for the first time.</div>
+    <button id="go" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l15-8.5z"/></svg></button>
+    <div id="hint">Sound on &middot; 42 seconds</div>
+  </div>
+
+  <div class="layer" id="papa">
+    <div id="dir"></div>
+    <div class="dots"><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="layer" id="boot">
+    <div id="scan"></div>
+    <svg id="brackets" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <path d="M6 22 L6 6 L26 6"></path><path d="M74 6 L94 6 L94 22"></path>
+      <path d="M94 78 L94 94 L74 94"></path><path d="M26 94 L6 94 L6 78"></path>
+    </svg>
+    <div id="hud">
+      <div class="hd">&#128225; Translating baby speak<i class="cur"></i></div>
+      <div class="row" data-i="0"><span>Acquiring signal</span><span class="lead"></span><span class="st">&middot;&middot;&middot;</span></div>
+      <div class="row" data-i="1"><span>Isolating vocal core</span><span class="lead"></span><span class="st">&middot;&middot;&middot;</span></div>
+      <div class="row" data-i="2"><span>Matching phonemes</span><span class="lead"></span><span class="st">&middot;&middot;&middot;</span></div>
+      <div class="bar"><i id="bootBar"></i></div>
+    </div>
+  </div>
+
+  <div class="layer" id="talk">
+    <div id="feed">
+      <div id="cap"></div>
+      <div id="raw"></div>
+    </div>
+  </div>
+
+  <div class="layer" id="end">
+    <h2 id="endH"></h2>
+    <div class="cake">&#127874; &#10024;</div>
+    <div class="rule"></div>
+    <div class="love">Love,</div>
+    <div class="name">Divyansh<i class="hb">&#128153;</i></div>
+    <div id="ps">P.S. &mdash; Daddy says happy birthday too.</div>
+    <div id="endBtns">
+      <button class="btn gold" id="toBoard">Sounds of Divyansh &rarr;</button>
+      <button class="btn" id="again">&#8635; Play again</button>
+    </div>
+  </div>
+
+  <div id="waveWrap"><canvas id="wave"></canvas>
+    <div id="timeRow"><span id="tNow">0:00</span><span id="tEnd">0:00</span></div>
+  </div>
+
+  <div id="board">
+    <div id="bwrap">
+      <div id="bhead">
+        <div class="kick">Sounds of</div>
+        <h2>Divyansh</h2>
+        <p>Every noise he made in his first month, saved. Tap one to hear it,
+           tap the star to keep your favourites.</p>
+      </div>
+      <div id="bbar">
+        <button class="btn gold" id="ballPlay">&#9654; Play all</button>
+        <button class="btn" id="ballStop">&#9632; Stop</button>
+        <button class="btn" id="bfav">&#9733; Favourites</button>
+        <span id="bcount"></span>
+      </div>
+      <div id="bsecs"></div>
+      <div id="bfull"></div>
+      <div id="bempty">No favourites yet &mdash; tap a star on any sound.</div>
+      <div id="bfoot"><button class="btn" id="toEnd">&larr; Back to the message</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const AUDIO_DAD   = "dad.mp3";
+const AUDIO_BABY  = "baby.mp3";
+const AUDIO_MUSIC = "music.mp3";
+const AUDIO_BOARD = "board.mp3";
+const AUDIO_FULL  = ["full-1.mp3", "full-2.mp3"];
+</script>
+<script>
+"use strict";
+const DUR_DAD  = 17.15;
+const DUR_BABY = 22.243;
+const GAP      = 2.9;
+const LINES    = [{"t": 0.68, "text": "Mamma, thank you for taking care of me and feeding me all the time.", "em": "🍼"}, {"t": 4.42, "text": "Thank you for dressing me up and showering me.", "em": "🛁"}, {"t": 7.74, "text": "Even though I poop on you and I pee on you, you never get upset with me.", "em": "🙈"}, {"t": 13.88, "text": "I love you so much.", "em": ""}, {"t": 17.74, "text": "Happy 1st Birthday as my Mamma!", "em": ""}];
+const ENV_DAD  = [0.132, 0.098, 0.092, 0.086, 0.075, 0.509, 0.739, 0.601, 0.587, 0.677, 0.541, 0.463, 0.149, 0.087, 0.114, 0.102, 0.1, 0.125, 0.094, 0.088, 0.086, 0.845, 0.749, 0.791, 0.939, 0.874, 0.833, 0.716, 0.212, 0.633, 0.713, 0.644, 0.662, 0.691, 0.613, 0.253, 0.571, 0.565, 0.365, 0.523, 0.522, 0.52, 0.565, 0.822, 0.878, 0.189, 0.093, 0.082, 0.092, 0.096, 0.569, 0.7, 0.471, 0.096, 0.104, 0.093, 0.107, 0.093, 0.083, 0.107, 0.374, 0.377, 0.367, 0.271, 0.161, 0.625, 0.507, 0.374, 0.632, 0.39, 0.152, 0.095, 0.493, 0.657, 0.157, 0.099, 0.097, 0.095, 0.083, 0.077, 0.084, 0.093, 0.613, 0.678, 0.785, 0.787, 0.574, 0.662, 0.597, 0.566, 0.469, 0.519, 0.381, 0.578, 0.45, 0.331, 0.267, 0.507, 0.555, 0.752, 0.814, 0.412, 0.794, 0.544, 0.112, 0.405, 0.084, 0.101, 0.111, 0.0, 0.0, 0.0, 0.0, 0.0, 0.101, 0.074, 0.172, 0.362, 0.185, 0.834, 0.943, 0.732, 0.123, 0.111, 0.095, 0.082, 0.086, 0.092, 0.078, 0.082, 0.085, 0.092, 0.071, 0.085, 0.13, 0.149, 0.584, 0.578, 0.3, 0.196, 0.109, 0.296, 0.45, 0.429, 0.16, 0.683, 0.578, 0.501, 0.451, 0.592, 0.573, 0.11, 0.294, 0.519, 0.322, 0.088, 0.123, 1.0, 0.905, 0.851, 0.612, 0.666, 0.571, 0.617, 0.577, 0.566, 0.395, 0.137, 0.097, 0.14, 0.094, 0.089, 0.089, 0.137, 0.095, 0.084, 0.082, 0.083, 0.111, 0.404, 0.579, 0.504, 0.373, 0.26, 0.208, 0.09, 0.682, 0.631, 0.54, 0.516, 0.484, 0.476, 0.594, 0.499, 0.33, 0.128, 0.092, 0.095, 0.693, 0.756, 0.583, 0.591, 0.531, 0.176, 0.388, 0.502, 0.521, 0.503, 0.477, 0.456, 0.464, 0.372, 0.274, 0.204, 0.147, 0.127, 0.109, 0.085, 0.017, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.125, 0.097, 0.186, 0.304, 0.302, 0.271, 0.415, 0.319, 0.243, 0.276, 0.213, 0.124, 0.19, 0.116, 0.076];
+const ENV_BABY = [1.0, 0.742, 0.201, 0.078, 0.081, 0.684, 0.192, 0.058, 0.0, 0.463, 0.858, 0.625, 0.61, 0.537, 0.554, 0.518, 0.547, 0.703, 0.724, 0.748, 0.684, 0.727, 0.717, 0.243, 0.089, 0.101, 0.791, 0.444, 0.644, 0.631, 0.68, 0.532, 0.55, 0.583, 0.597, 0.533, 0.488, 0.586, 0.612, 0.547, 0.499, 0.119, 0.248, 0.058, 0.047, 0.122, 0.586, 0.712, 0.77, 0.671, 0.535, 0.508, 0.45, 0.391, 0.105, 0.069, 0.047, 0.043, 0.046, 0.278, 0.45, 0.464, 0.393, 0.091, 0.007, 0.266, 0.265, 0.085, 0.72, 0.66, 0.678, 0.667, 0.725, 0.686, 0.733, 0.698, 0.683, 0.59, 0.463, 0.241, 0.16, 0.035, 0.203, 0.17, 0.328, 0.254, 0.308, 0.351, 0.39, 0.401, 0.377, 0.341, 0.227, 0.159, 0.211, 0.35, 0.306, 0.066, 0.054, 0.052, 0.066, 0.049, 0.04, 0.031, 0.279, 0.452, 0.214, 0.386, 0.36, 0.306, 0.31, 0.236, 0.086, 0.0, 0.458, 0.406, 0.132, 0.226, 0.23, 0.251, 0.315, 0.361, 0.562, 0.398, 0.31, 0.302, 0.281, 0.178, 0.135, 0.0, 0.092, 0.149, 0.187, 0.473, 0.209, 0.073, 0.053, 0.042, 0.033, 0.039, 0.031, 0.034, 0.034, 0.041, 0.048, 0.559, 0.635, 0.656, 0.594, 0.595, 0.594, 0.543, 0.536, 0.613, 0.749, 0.723, 0.539, 0.383, 0.224, 0.125, 0.041, 0.447, 0.564, 0.403, 0.278, 0.298, 0.324, 0.12, 0.061, 0.054, 0.403, 0.533, 0.207, 0.09, 0.0, 0.295, 0.619, 0.708, 0.712, 0.632, 0.654, 0.372, 0.087, 0.083, 0.074, 0.074, 0.071, 0.252, 0.23, 0.322, 0.292, 0.303, 0.264, 0.262, 0.262, 0.151, 0.309, 0.188, 0.198, 0.315, 0.348, 0.367, 0.191, 0.089, 0.033, 0.363, 0.656, 0.512, 0.188, 0.093, 0.058, 0.059, 0.058, 0.063, 0.056, 0.115, 0.688, 0.66, 0.816, 0.807, 0.721, 0.756, 0.784, 0.394, 0.17, 0.03, 0.568, 0.696, 0.149, 0.105, 0.089, 0.622, 0.612, 0.548, 0.132, 0.048, 0.0, 0.0, 0.0, 0.15, 0.223, 0.261, 0.302, 0.32, 0.289, 0.255, 0.252, 0.191, 0.152, 0.096, 0.103, 0.121, 0.119, 0.048, 0.294, 0.232, 0.182, 0.419, 0.247, 0.122, 0.221, 0.163, 0.237, 0.248, 0.091, 0.316, 0.288, 0.413, 0.405, 0.139, 0.246, 0.427, 0.576, 0.225, 0.268, 0.216, 0.051, 0.066, 0.865, 0.865, 0.226, 0.123, 0.281, 0.113, 0.052, 0.036, 0.032, 0.028, 0.146, 0.591, 0.697, 0.603, 0.421, 0.426, 0.335, 0.313, 0.362, 0.336, 0.23, 0.147];
+const BOARD    = {"lead":0.3,"sections":[{"title":"Little sounds","note":"Everything he had to say in his first month.","ids":["A167","A004","B287","B260","A187","B264","A141","A192","A006","B274","B302","B305","A108","A019","A199","A112","A113","A246","A030","C315","A026","A085","A198","B295","B296","C327","C328","C330","A033","A207","A133","A135","A136","A137","A193","A204","A154","B292","B293","B280","B281","B270","A068","A147","A148","A149","A234","A235","A236","A230","A110","A161","A162","C322","C323","C324","A127","A169","A170","A171","A139","B298","B299","B300","A216","A217","A226"]},{"title":"How I sound when eating","note":"Recorded at dinner time.","ids":["D348","D350","D353","D354","D358","D369","D371","D379","D381","D383","D387","D389","D391","D393","D397","D399","E419","E424","E425","E430","E442","E444","E446","E451"]}],"items":{"A167":{"t":0.3,"d":0.46,"p":[0.047,0.104,0.135,0.116,0.12,0.053,0.069,0.045,0.059,0.093,0.081,0.073,0.046,0.039,0.053,0.04,0.041,0.034,0.036,0.049,0.042,0.098,0.06,0.122,0.091,0.144,0.213,0.263,0.34,0.394,0.5,0.77,0.892,1.0,0.693,0.651,0.273,0.251,0.161,0.183,0.203,0.157,0.283,0.311,0.431,0.458,0.505,0.26,0.25,0.338,0.302,0.17,0.195,0.135,0.099,0.077,0.07,0.065,0.056,0.066,0.044,0.05,0.046,0.033]},"A004":{"t":0.91,"d":0.52,"p":[0.026,0.046,0.051,0.077,0.045,0.039,0.045,0.163,0.061,0.041,0.056,0.04,0.046,0.04,0.039,0.04,0.059,0.056,0.051,0.062,0.077,0.094,0.113,0.128,0.088,0.135,0.113,0.073,0.064,0.87,0.995,0.97,0.921,0.769,0.726,0.895,0.988,1.0,0.933,0.382,0.141,0.142,0.137,0.112,0.048,0.045,0.072,0.075,0.052,0.052,0.032,0.036,0.08,0.058,0.07,0.068,0.033,0.042,0.039,0.234,0.17,0.395,0.07,0.311]},"B287":{"t":1.58,"d":0.56,"p":[0.017,0.022,0.013,0.014,0.018,0.02,0.02,0.019,0.018,0.017,0.015,0.016,0.023,0.016,0.017,0.014,0.013,0.015,0.013,0.017,0.016,0.023,0.041,0.037,0.084,0.128,0.203,0.598,0.758,0.655,1.0,0.846,0.622,0.318,0.57,0.419,0.337,0.385,0.263,0.193,0.227,0.176,0.177,0.139,0.122,0.094,0.089,0.093,0.064,0.078,0.065,0.048,0.049,0.044,0.033,0.038,0.032,0.022,0.026,0.029,0.024,0.021,0.021,0.016]},"B260":{"t":2.29,"d":0.71,"p":[0.014,0.021,0.114,0.083,0.067,0.033,0.038,0.024,0.026,0.02,0.02,0.031,0.027,0.026,0.027,0.049,0.058,0.123,0.376,0.64,0.84,0.969,0.715,1.0,0.843,0.72,0.585,0.327,0.452,0.57,0.333,0.816,0.459,0.412,0.36,0.361,0.32,0.432,0.386,0.251,0.295,0.274,0.607,0.433,0.46,0.491,0.452,0.267,0.162,0.114,0.088,0.133,0.189,0.067,0.175,0.065,0.045,0.035,0.032,0.03,0.04,0.037,0.022,0.027]},"A187":{"t":3.15,"d":0.55,"p":[0.05,0.044,0.058,0.062,0.072,0.151,0.145,0.189,0.206,0.225,0.282,0.316,0.314,0.349,0.333,0.387,0.359,0.386,0.401,0.401,0.412,0.435,0.582,0.726,0.846,0.838,0.799,0.934,0.991,1.0,0.962,0.881,0.851,0.861,0.825,0.885,0.768,0.667,0.613,0.589,0.386,0.304,0.301,0.258,0.193,0.142,0.148,0.158,0.136,0.121,0.09,0.121,0.133,0.131,0.299,0.327,0.368,0.426,0.447,0.42,0.474,0.509,0.524,0.33]},"B264":{"t":3.85,"d":1.04,"p":[0.04,0.047,0.027,0.03,0.026,0.028,0.026,0.019,0.016,0.015,0.016,0.073,0.036,0.033,0.278,0.955,1.0,0.83,0.468,0.237,0.13,0.109,0.102,0.065,0.067,0.039,0.038,0.054,0.051,0.031,0.055,0.073,0.051,0.056,0.027,0.017,0.011,0.01,0.009,0.043,0.129,0.251,0.302,0.346,0.414,0.409,0.36,0.361,0.183,0.145,0.104,0.172,0.122,0.067,0.033,0.03,0.02,0.019,0.018,0.015,0.015,0.021,0.012,0.009]},"A141":{"t":5.04,"d":0.83,"p":[0.019,0.023,0.026,0.019,0.024,0.017,0.024,0.018,0.023,0.016,0.016,0.015,0.019,0.013,0.015,0.322,0.546,0.705,0.882,0.838,0.902,0.716,0.361,0.177,0.171,0.283,0.383,0.392,0.528,0.489,0.491,0.353,0.358,0.533,0.402,0.576,0.649,0.609,0.569,0.548,0.616,0.698,0.517,0.394,0.709,1.0,0.894,0.377,0.245,0.22,0.178,0.159,0.105,0.054,0.092,0.069,0.061,0.046,0.044,0.037,0.047,0.044,0.198,0.22]},"A192":{"t":6.02,"d":0.74,"p":[0.092,0.092,0.081,0.16,0.279,0.34,0.43,0.765,0.716,0.59,0.727,0.441,0.369,0.203,0.318,0.359,0.377,0.686,0.723,0.88,0.9,1.0,0.997,0.864,0.733,0.519,0.388,0.471,0.499,0.501,0.62,0.679,0.537,0.614,0.61,0.583,0.732,0.696,0.464,0.49,0.634,0.761,0.592,0.495,0.455,0.421,0.372,0.433,0.404,0.228,0.105,0.067,0.072,0.058,0.085,0.076,0.049,0.062,0.045,0.046,0.068,0.067,0.043,0.08]},"A006":{"t":6.91,"d":0.58,"p":[0.012,0.015,0.017,0.014,0.013,0.018,0.014,0.018,0.016,0.016,0.023,0.014,0.014,0.012,0.014,0.013,0.015,0.017,0.015,0.076,0.074,0.018,0.015,0.025,0.16,0.488,0.693,0.363,0.412,0.41,0.324,0.989,1.0,0.964,0.886,0.779,0.622,0.548,0.51,0.548,0.36,0.218,0.164,0.114,0.108,0.082,0.085,0.083,0.078,0.062,0.087,0.074,0.086,0.096,0.109,0.1,0.096,0.091,0.078,0.079,0.083,0.074,0.078,0.057]},"B274":{"t":7.64,"d":0.87,"p":[0.019,0.022,0.021,0.021,0.105,0.206,0.179,0.077,0.042,0.023,0.019,0.015,0.019,0.029,0.048,0.063,0.427,0.438,0.552,0.718,0.764,0.316,0.176,0.109,0.093,0.083,0.044,0.036,0.057,0.048,0.027,0.03,0.023,0.093,0.033,0.018,0.015,0.022,0.019,0.021,0.097,0.059,0.108,0.878,1.0,0.87,0.488,0.257,0.219,0.21,0.117,0.078,0.051,0.078,0.077,0.161,0.157,0.074,0.045,0.083,0.11,0.086,0.024,0.015]},"B302":{"t":8.66,"d":1.22,"p":[0.04,0.036,0.05,0.048,0.051,0.035,0.023,0.024,0.022,0.019,0.02,0.476,0.648,0.623,0.363,0.136,0.108,0.062,0.065,0.065,0.046,0.037,0.025,0.02,0.024,0.027,0.019,0.043,0.895,1.0,0.897,0.511,0.217,0.19,0.097,0.094,0.063,0.037,0.034,0.027,0.023,0.018,0.016,0.018,0.017,0.021,0.018,0.355,0.433,0.579,0.49,0.633,0.386,0.254,0.182,0.071,0.047,0.042,0.027,0.024,0.019,0.021,0.018,0.013]},"B305":{"t":10.03,"d":1.1,"p":[0.006,0.008,0.008,0.008,0.007,0.007,0.008,0.005,0.008,0.077,0.182,0.194,0.338,0.523,0.63,0.796,1.0,0.853,0.246,0.219,0.173,0.091,0.072,0.065,0.046,0.038,0.026,0.023,0.017,0.021,0.029,0.045,0.018,0.018,0.013,0.036,0.635,0.408,0.23,0.662,0.501,0.301,0.238,0.129,0.101,0.06,0.164,0.341,0.536,0.592,0.604,0.431,0.231,0.12,0.103,0.059,0.043,0.081,0.052,0.045,0.039,0.037,0.034,0.056]},"A108":{"t":11.28,"d":0.63,"p":[0.027,0.029,0.034,0.033,0.031,0.033,0.043,0.04,0.031,0.029,0.029,0.039,0.032,0.027,0.038,0.028,0.034,0.038,0.216,0.364,0.308,0.436,0.584,0.552,0.755,0.785,0.691,0.501,0.409,0.354,0.282,0.235,0.672,0.681,0.882,1.0,0.953,0.794,0.845,0.852,0.756,0.737,0.4,0.339,0.173,0.201,0.126,0.132,0.089,0.083,0.101,0.062,0.046,0.038,0.038,0.029,0.024,0.025,0.022,0.024,0.02,0.03,0.02,0.015]},"A019":{"t":12.06,"d":0.53,"p":[0.097,0.11,0.088,0.109,0.258,0.306,0.336,0.392,0.377,0.199,0.208,0.202,0.165,0.128,0.161,0.188,0.202,0.229,0.179,0.209,0.334,0.264,0.175,0.188,0.2,0.2,0.339,0.502,0.699,0.969,1.0,0.993,0.661,0.746,0.822,0.661,0.746,0.7,0.668,0.326,0.239,0.172,0.116,0.108,0.088,0.054,0.074,0.09,0.054,0.057,0.057,0.051,0.057,0.042,0.042,0.046,0.046,0.052,0.049,0.054,0.042,0.067,0.068,0.035]},"A199":{"t":12.74,"d":0.63,"p":[0.008,0.02,0.015,0.015,0.013,0.016,0.018,0.016,0.017,0.017,0.017,0.019,0.013,0.01,0.024,0.011,0.013,0.01,0.017,0.016,0.017,0.016,0.202,0.5,0.541,0.558,0.58,0.562,0.427,0.235,0.406,0.846,0.91,1.0,0.905,0.697,0.555,0.251,0.218,0.136,0.226,0.234,0.182,0.162,0.141,0.137,0.112,0.034,0.033,0.023,0.018,0.024,0.028,0.069,0.082,0.05,0.044,0.031,0.03,0.068,0.04,0.022,0.02,0.014]},"A112":{"t":13.52,"d":0.54,"p":[0.009,0.009,0.021,0.016,0.008,0.009,0.01,0.01,0.007,0.006,0.009,0.009,0.008,0.007,0.009,0.008,0.01,0.009,0.007,0.01,0.014,0.011,0.013,0.017,0.059,0.111,0.172,0.067,0.279,0.574,0.361,0.384,0.835,1.0,0.918,0.775,0.359,0.17,0.087,0.106,0.115,0.108,0.049,0.04,0.036,0.029,0.021,0.026,0.024,0.022,0.023,0.018,0.019,0.016,0.02,0.019,0.018,0.012,0.013,0.011,0.01,0.011,0.007,0.008]},"A113":{"t":14.21,"d":0.75,"p":[0.006,0.006,0.005,0.007,0.008,0.007,0.007,0.006,0.006,0.009,0.005,0.008,0.008,0.009,0.01,0.008,0.008,0.007,0.007,0.012,0.869,0.857,0.877,0.891,0.845,0.926,0.319,0.096,0.108,0.507,0.263,0.128,0.046,0.03,0.023,0.064,0.067,0.144,0.149,0.552,0.925,1.0,0.815,0.71,0.196,0.074,0.102,0.091,0.036,0.027,0.02,0.018,0.019,0.018,0.014,0.01,0.011,0.012,0.014,0.016,0.019,0.024,0.02,0.018]},"A246":{"t":15.11,"d":0.57,"p":[0.02,0.032,0.029,0.037,0.034,0.032,0.021,0.03,0.021,0.024,0.086,0.133,0.152,0.188,0.314,0.31,0.393,0.312,0.297,0.272,0.145,0.115,0.073,0.068,0.067,0.365,0.568,0.709,0.695,0.855,1.0,0.919,0.561,0.384,0.334,0.394,0.514,0.452,0.289,0.189,0.305,0.16,0.203,0.134,0.095,0.105,0.073,0.051,0.06,0.048,0.051,0.05,0.049,0.044,0.034,0.035,0.039,0.03,0.029,0.035,0.039,0.043,0.044,0.025]},"A030":{"t":15.83,"d":0.86,"p":[0.026,0.032,0.04,0.055,0.051,0.04,0.05,0.041,0.036,0.039,0.04,0.041,0.047,0.048,0.033,0.027,0.243,0.407,0.486,0.478,0.382,0.176,0.285,0.222,0.066,0.045,0.034,0.026,0.032,0.029,0.026,0.019,0.022,0.03,0.023,0.021,0.015,0.027,0.02,0.023,0.106,0.245,0.982,1.0,0.821,0.49,0.191,0.158,0.115,0.088,0.047,0.053,0.057,0.041,0.028,0.028,0.036,0.022,0.025,0.034,0.03,0.033,0.049,0.023]},"C315":{"t":16.84,"d":1.42,"p":[0.03,0.037,0.05,0.052,0.048,0.025,0.024,0.022,0.029,0.02,0.307,0.138,0.033,0.022,0.038,0.052,0.031,0.04,0.043,0.028,0.033,0.026,0.02,0.801,0.883,0.994,1.0,0.842,0.389,0.123,0.061,0.055,0.086,0.187,0.102,0.324,0.461,0.347,0.32,0.076,0.246,0.208,0.032,0.029,0.039,0.029,0.032,0.028,0.036,0.022,0.023,0.021,0.02,0.735,0.664,0.13,0.04,0.031,0.024,0.024,0.029,0.021,0.022,0.027]},"A026":{"t":18.41,"d":0.63,"p":[0.01,0.014,0.014,0.009,0.008,0.008,0.009,0.009,0.016,0.012,0.012,0.012,0.014,0.014,0.008,0.016,0.01,0.018,0.011,0.013,0.017,0.03,0.193,0.238,0.219,0.223,0.096,0.026,0.044,0.06,0.045,0.035,0.036,0.036,0.219,1.0,0.78,0.877,0.982,0.962,0.965,0.955,0.609,0.11,0.089,0.057,0.028,0.02,0.019,0.018,0.023,0.015,0.012,0.01,0.017,0.019,0.018,0.015,0.013,0.015,0.012,0.01,0.012,0.007]},"A085":{"t":19.19,"d":1.46,"p":[0.029,0.034,0.046,0.041,0.294,0.031,0.057,0.03,0.037,0.2,0.587,0.464,0.196,0.126,0.084,0.053,0.053,0.077,0.112,0.057,0.032,0.055,0.035,0.031,0.033,0.033,0.042,0.858,1.0,0.966,0.614,0.528,0.971,0.554,0.524,0.582,0.42,0.288,0.358,0.31,0.345,0.368,0.511,0.668,0.481,0.547,0.575,0.439,0.574,0.425,0.473,0.327,0.317,0.314,0.243,0.167,0.138,0.061,0.044,0.034,0.046,0.044,0.036,0.024]},"A198":{"t":20.8,"d":0.98,"p":[0.016,0.021,0.014,0.015,0.016,0.014,0.019,0.018,0.013,0.015,0.016,0.114,0.143,0.223,0.315,0.686,0.726,0.529,0.519,0.352,0.321,0.868,1.0,0.414,0.209,0.045,0.042,0.044,0.031,0.03,0.089,0.045,0.036,0.05,0.024,0.018,0.027,0.022,0.023,0.021,0.022,0.026,0.027,0.026,0.032,0.849,0.325,0.125,0.065,0.443,0.4,0.153,0.049,0.043,0.034,0.029,0.02,0.03,0.026,0.027,0.022,0.044,0.035,0.04]},"B295":{"t":21.93,"d":0.62,"p":[0.01,0.008,0.008,0.005,0.005,0.009,0.007,0.009,0.007,0.008,0.005,0.006,0.005,0.005,0.006,0.006,0.008,0.005,0.006,0.004,0.004,0.018,0.033,0.084,0.281,0.62,1.0,0.859,0.676,0.738,0.743,0.541,0.44,0.454,0.314,0.293,0.295,0.286,0.17,0.103,0.106,0.073,0.073,0.059,0.068,0.046,0.043,0.045,0.027,0.037,0.014,0.014,0.012,0.01,0.01,0.011,0.008,0.01,0.011,0.006,0.01,0.006,0.006,0.005]},"B296":{"t":22.7,"d":0.9,"p":[0.023,0.015,0.023,0.217,0.307,0.099,0.074,0.077,0.046,0.033,0.057,0.073,0.141,0.234,0.317,0.321,0.505,1.0,0.75,0.207,0.185,0.128,0.122,0.105,0.066,0.05,0.038,0.021,0.036,0.017,0.027,0.017,0.182,0.184,0.215,0.244,0.119,0.112,0.1,0.06,0.045,0.048,0.045,0.079,0.353,0.613,0.802,0.742,0.528,0.341,0.173,0.165,0.104,0.104,0.082,0.092,0.27,0.376,0.461,0.449,0.371,0.227,0.109,0.095]},"C327":{"t":23.75,"d":0.57,"p":[0.056,0.071,0.11,0.051,0.066,0.067,0.064,0.06,0.08,0.078,0.075,0.064,0.059,0.058,0.08,0.049,0.071,0.073,0.082,0.062,0.067,0.052,0.076,0.419,0.758,0.771,0.872,1.0,0.784,0.989,0.999,0.878,0.613,0.625,0.593,0.461,0.379,0.315,0.578,0.563,0.632,0.473,0.342,0.183,0.219,0.104,0.081,0.08,0.098,0.097,0.096,0.074,0.071,0.099,0.067,0.046,0.067,0.057,0.181,0.27,0.197,0.22,0.07,0.055]},"C328":{"t":24.47,"d":0.84,"p":[0.032,0.031,0.03,0.023,0.04,0.024,0.028,0.031,0.023,0.032,0.024,0.03,0.04,0.09,0.124,0.136,0.21,0.252,0.353,0.361,0.377,0.429,0.454,0.546,0.618,0.667,0.863,0.863,0.941,0.946,0.987,1.0,0.944,0.972,0.964,0.891,0.888,0.919,0.869,0.69,0.71,0.655,0.541,0.543,0.409,0.345,0.273,0.266,0.146,0.093,0.057,0.046,0.055,0.037,0.033,0.021,0.027,0.023,0.024,0.025,0.025,0.024,0.031,0.015]},"C330":{"t":25.46,"d":0.83,"p":[0.043,0.045,0.033,0.047,0.044,0.037,0.05,0.045,0.096,0.106,0.108,0.086,0.078,0.058,0.113,0.161,0.3,0.436,0.504,0.556,0.547,0.358,0.336,0.42,0.559,0.607,0.826,0.897,1.0,0.984,0.988,0.799,0.678,0.662,0.421,0.381,0.369,0.561,0.531,0.533,0.497,0.45,0.618,0.683,0.521,0.608,0.51,0.402,0.392,0.088,0.065,0.075,0.054,0.064,0.054,0.094,0.033,0.035,0.048,0.044,0.048,0.057,0.055,0.047]},"A033":{"t":26.44,"d":0.64,"p":[0.009,0.009,0.012,0.015,0.02,0.046,0.016,0.011,0.011,0.016,0.014,0.011,0.015,0.022,0.011,0.013,0.016,0.012,0.02,0.015,0.014,0.017,0.015,0.386,0.856,0.692,0.933,0.795,0.982,1.0,0.901,0.887,0.781,0.672,0.603,0.531,0.399,0.242,0.078,0.062,0.348,0.312,0.268,0.233,0.051,0.049,0.035,0.048,0.026,0.03,0.022,0.021,0.02,0.017,0.016,0.012,0.016,0.019,0.013,0.013,0.012,0.012,0.012,0.018]},"A207":{"t":27.23,"d":0.85,"p":[0.006,0.006,0.004,0.007,0.004,0.005,0.006,0.006,0.006,0.005,0.008,0.014,0.023,0.022,0.022,0.014,0.015,0.022,0.442,1.0,0.902,0.728,0.577,0.142,0.077,0.043,0.028,0.031,0.018,0.017,0.02,0.073,0.043,0.016,0.016,0.014,0.015,0.008,0.007,0.007,0.012,0.018,0.016,0.018,0.014,0.53,0.394,0.105,0.081,0.064,0.068,0.017,0.015,0.01,0.011,0.01,0.007,0.007,0.007,0.006,0.008,0.006,0.008,0.009]},"A133":{"t":28.23,"d":0.89,"p":[0.025,0.03,0.037,0.033,0.199,0.273,0.304,0.354,0.318,0.329,0.472,0.541,0.615,0.6,0.64,0.676,0.732,0.772,0.886,0.938,0.914,0.932,0.927,0.92,1.0,0.903,0.946,0.769,0.768,0.856,0.784,0.691,0.762,0.748,0.702,0.654,0.682,0.653,0.717,0.687,0.617,0.659,0.6,0.537,0.497,0.436,0.389,0.294,0.288,0.27,0.303,0.28,0.171,0.237,0.193,0.146,0.112,0.129,0.129,0.126,0.135,0.133,0.16,0.168]},"A135":{"t":29.27,"d":0.51,"p":[0.017,0.023,0.021,0.026,0.026,0.025,0.026,0.023,0.022,0.017,0.023,0.015,0.022,0.016,0.018,0.02,0.02,0.018,0.021,0.016,0.013,0.024,0.191,0.459,0.592,0.752,0.489,0.57,0.767,0.8,0.976,1.0,0.906,0.732,0.402,0.576,0.641,0.473,0.314,0.406,0.281,0.174,0.243,0.1,0.161,0.11,0.233,0.237,0.337,0.3,0.253,0.302,0.25,0.245,0.202,0.146,0.115,0.081,0.087,0.088,0.064,0.044,0.049,0.035]},"A136":{"t":29.9299,"d":0.7,"p":[0.053,0.056,0.03,0.031,0.036,0.033,0.025,0.022,0.018,0.02,0.02,0.016,0.015,0.013,0.016,0.017,0.029,0.015,0.086,0.234,0.403,0.397,0.685,0.832,1.0,0.715,0.406,0.379,0.326,0.312,0.353,0.344,0.581,0.586,0.524,0.451,0.362,0.227,0.203,0.192,0.209,0.155,0.145,0.174,0.181,0.237,0.142,0.122,0.107,0.071,0.068,0.101,0.073,0.067,0.071,0.048,0.031,0.053,0.041,0.031,0.028,0.032,0.026,0.023]},"A137":{"t":30.7799,"d":0.63,"p":[0.016,0.019,0.016,0.019,0.014,0.012,0.014,0.014,0.011,0.009,0.011,0.009,0.015,0.013,0.009,0.011,0.008,0.01,0.011,0.01,0.01,0.01,0.247,0.309,0.321,0.476,0.416,0.332,0.315,0.333,0.285,0.364,0.594,0.739,0.689,1.0,0.873,0.517,0.459,0.282,0.216,0.189,0.147,0.106,0.115,0.047,0.065,0.074,0.043,0.026,0.033,0.04,0.035,0.033,0.025,0.02,0.018,0.017,0.015,0.016,0.012,0.01,0.009,0.004]},"A193":{"t":31.5599,"d":1.35,"p":[0.016,0.017,0.016,0.016,0.016,0.019,0.011,0.013,0.015,0.017,0.016,0.711,1.0,0.88,0.166,0.051,0.062,0.062,0.118,0.287,0.344,0.426,0.402,0.076,0.041,0.039,0.022,0.017,0.017,0.014,0.012,0.013,0.013,0.011,0.015,0.014,0.06,0.264,0.297,0.324,0.07,0.033,0.081,0.125,0.138,0.214,0.41,0.415,0.355,0.3,0.143,0.086,0.146,0.129,0.136,0.101,0.082,0.065,0.055,0.021,0.021,0.02,0.04,0.05]},"A204":{"t":33.0599,"d":0.57,"p":[0.005,0.01,0.006,0.009,0.008,0.01,0.007,0.008,0.009,0.01,0.008,0.013,0.006,0.006,0.007,0.006,0.009,0.006,0.008,0.008,0.012,0.049,0.028,0.078,0.1,0.188,0.22,0.802,0.912,0.578,0.718,1.0,0.975,0.601,0.214,0.184,0.086,0.587,0.523,0.34,0.104,0.104,0.057,0.044,0.023,0.024,0.027,0.017,0.021,0.02,0.023,0.016,0.015,0.021,0.01,0.012,0.008,0.012,0.007,0.011,0.014,0.01,0.012,0.011]},"A154":{"t":33.7799,"d":1.35,"p":[0.012,0.012,0.01,0.011,0.009,0.012,0.012,0.011,0.008,0.027,0.359,0.732,0.603,0.48,0.204,0.103,0.084,0.058,0.058,0.101,0.151,0.218,0.229,0.212,0.236,0.069,0.11,0.212,0.247,0.271,0.388,0.396,0.355,0.308,0.398,0.44,0.495,0.971,1.0,0.897,0.528,0.572,0.501,0.466,0.346,0.29,0.406,0.366,0.197,0.183,0.168,0.16,0.321,0.329,0.195,0.112,0.151,0.1,0.055,0.024,0.016,0.015,0.014,0.017]},"B292":{"t":35.2799,"d":0.55,"p":[0.018,0.031,0.016,0.025,0.023,0.021,0.014,0.017,0.023,0.033,0.013,0.012,0.017,0.017,0.01,0.008,0.02,0.009,0.012,0.01,0.009,0.023,0.031,0.023,0.033,0.217,0.253,0.381,0.403,0.492,0.544,0.783,0.883,1.0,0.774,0.629,0.412,0.341,0.296,0.192,0.18,0.135,0.076,0.087,0.098,0.077,0.048,0.061,0.074,0.138,0.166,0.222,0.328,0.252,0.297,0.243,0.175,0.062,0.063,0.128,0.126,0.082,0.086,0.059]},"B293":{"t":35.9799,"d":0.54,"p":[0.103,0.149,0.086,0.105,0.065,0.073,0.042,0.03,0.026,0.036,0.025,0.035,0.022,0.049,0.044,0.051,0.049,0.022,0.034,0.027,0.029,0.038,0.069,0.089,0.07,0.082,0.079,0.223,0.429,0.956,1.0,0.772,0.573,0.53,0.365,0.348,0.289,0.352,0.292,0.243,0.201,0.087,0.096,0.086,0.097,0.092,0.09,0.133,0.09,0.125,0.161,0.123,0.143,0.122,0.173,0.162,0.167,0.208,0.163,0.171,0.274,0.254,0.32,0.299]},"B280":{"t":36.6699,"d":0.51,"p":[0.037,0.062,0.046,0.059,0.07,0.077,0.041,0.034,0.034,0.027,0.103,0.085,0.083,0.045,0.039,0.087,0.121,0.157,0.08,0.045,0.031,0.031,0.04,0.226,0.209,0.165,0.179,0.265,0.289,0.361,0.779,1.0,0.991,0.601,0.354,0.395,0.429,0.275,0.213,0.172,0.218,0.099,0.098,0.079,0.055,0.073,0.036,0.047,0.039,0.05,0.043,0.032,0.021,0.031,0.028,0.02,0.021,0.03,0.019,0.023,0.021,0.021,0.023,0.012]},"B281":{"t":37.3299,"d":1.37,"p":[0.006,0.007,0.007,0.007,0.007,0.01,0.011,0.014,0.012,0.016,0.348,0.452,0.642,0.829,0.596,0.635,0.697,0.823,0.849,0.637,0.691,0.612,0.684,0.62,0.691,0.606,0.694,0.681,0.58,0.55,0.624,0.479,0.544,0.458,0.542,0.512,0.573,0.69,0.683,0.743,0.803,0.905,0.942,1.0,0.949,0.785,0.718,0.644,0.589,0.502,0.43,0.361,0.197,0.178,0.155,0.111,0.126,0.058,0.028,0.017,0.016,0.018,0.016,0.012]},"B270":{"t":38.8499,"d":0.73,"p":[0.106,0.097,0.145,0.068,0.059,0.056,0.061,0.042,0.036,0.037,0.027,0.02,0.016,0.021,0.019,0.017,0.03,0.024,0.08,0.131,0.369,0.459,0.493,0.89,0.892,1.0,0.941,0.696,0.313,0.392,0.346,0.257,0.273,0.351,0.527,0.378,0.49,0.628,0.621,0.36,0.404,0.306,0.291,0.3,0.359,0.175,0.219,0.126,0.111,0.099,0.07,0.055,0.051,0.053,0.054,0.112,0.107,0.073,0.075,0.059,0.043,0.056,0.057,0.033]},"A068":{"t":39.7299,"d":0.98,"p":[0.017,0.019,0.017,0.017,0.016,0.012,0.01,0.011,0.013,0.016,0.03,0.04,0.036,0.037,0.078,0.659,0.699,0.7,0.972,1.0,0.77,0.249,0.104,0.084,0.071,0.049,0.042,0.042,0.047,0.05,0.054,0.033,0.028,0.019,0.02,0.02,0.039,0.039,0.037,0.033,0.052,0.822,0.792,0.703,0.776,0.813,0.745,0.695,0.477,0.226,0.167,0.142,0.07,0.046,0.051,0.047,0.039,0.038,0.048,0.042,0.039,0.043,0.063,0.06]},"A147":{"t":40.8599,"d":1.25,"p":[0.009,0.01,0.014,0.01,0.011,0.01,0.01,0.015,0.011,0.016,0.017,0.312,0.607,0.54,1.0,0.749,0.693,0.573,0.584,0.358,0.383,0.495,0.319,0.307,0.293,0.321,0.355,0.355,0.339,0.375,0.409,0.254,0.131,0.088,0.051,0.038,0.035,0.031,0.03,0.023,0.026,0.024,0.016,0.014,0.015,0.016,0.013,0.427,0.643,0.93,0.878,0.585,0.275,0.204,0.08,0.066,0.057,0.031,0.029,0.026,0.021,0.012,0.013,0.014]},"A148":{"t":42.2599,"d":1.3,"p":[0.014,0.014,0.034,0.026,0.074,0.334,0.118,0.082,0.132,0.398,0.498,0.722,0.563,0.517,0.474,0.448,0.465,0.656,0.602,0.511,0.633,0.582,0.43,0.806,0.559,0.876,0.89,0.959,0.864,1.0,0.804,0.738,0.701,0.742,0.895,0.857,0.463,0.574,0.501,0.399,0.352,0.413,0.238,0.212,0.119,0.126,0.1,0.145,0.243,0.376,0.501,0.803,0.701,0.563,0.655,0.151,0.076,0.053,0.046,0.055,0.044,0.039,0.032,0.03]},"A149":{"t":43.7099,"d":0.9,"p":[0.024,0.019,0.019,0.022,0.018,0.021,0.015,0.014,0.014,0.013,0.012,0.021,0.104,0.102,0.052,0.122,0.466,0.941,0.903,0.984,1.0,0.575,0.222,0.305,0.183,0.127,0.062,0.277,0.551,0.698,0.788,0.664,0.742,0.656,0.706,0.698,0.62,0.561,0.524,0.38,0.465,0.48,0.566,0.378,0.481,0.505,0.565,0.44,0.409,0.37,0.285,0.258,0.142,0.119,0.071,0.07,0.037,0.031,0.028,0.026,0.021,0.023,0.024,0.017]},"A234":{"t":44.7599,"d":1.23,"p":[0.018,0.019,0.017,0.019,0.017,0.017,0.024,0.025,0.023,0.023,0.017,0.116,0.441,0.444,0.341,0.145,0.064,0.054,0.033,0.023,0.017,0.02,0.018,0.03,0.01,0.013,0.013,0.016,0.015,0.016,0.448,0.622,0.785,1.0,0.895,0.642,0.499,0.481,0.459,0.437,0.482,0.427,0.529,0.499,0.371,0.28,0.299,0.318,0.409,0.496,0.374,0.312,0.185,0.12,0.077,0.055,0.034,0.022,0.021,0.019,0.016,0.012,0.011,0.011]},"A235":{"t":46.1399,"d":0.51,"p":[0.011,0.016,0.026,0.019,0.018,0.04,0.06,0.107,0.077,0.052,0.036,0.034,0.038,0.026,0.02,0.021,0.022,0.018,0.025,0.022,0.017,0.02,0.021,0.037,0.057,0.071,0.084,0.052,0.126,0.698,0.831,1.0,0.788,0.562,0.651,0.257,0.173,0.221,0.203,0.121,0.099,0.09,0.05,0.043,0.058,0.06,0.06,0.05,0.043,0.04,0.043,0.024,0.028,0.021,0.02,0.022,0.018,0.026,0.026,0.081,0.077,0.082,0.027,0.027]},"A236":{"t":46.7999,"d":0.51,"p":[0.035,0.057,0.037,0.039,0.037,0.031,0.029,0.033,0.028,0.028,0.028,0.031,0.038,0.036,0.031,0.036,0.032,0.03,0.029,0.027,0.031,0.029,0.038,0.042,0.034,0.024,0.035,0.032,0.044,0.291,0.641,0.939,0.985,1.0,0.762,0.681,0.257,0.137,0.129,0.106,0.106,0.11,0.093,0.048,0.062,0.064,0.052,0.043,0.049,0.04,0.045,0.05,0.043,0.044,0.047,0.065,0.039,0.038,0.059,0.03,0.024,0.021,0.023,0.015]},"A230":{"t":47.4599,"d":1.04,"p":[0.02,0.02,0.022,0.037,0.03,0.038,0.032,0.029,0.032,0.032,0.031,0.033,0.026,0.03,0.608,0.83,1.0,0.757,0.39,0.207,0.194,0.107,0.063,0.036,0.038,0.048,0.046,0.032,0.034,0.036,0.026,0.036,0.034,0.032,0.034,0.032,0.033,0.597,0.7,0.928,0.924,0.802,0.887,0.757,0.609,0.493,0.533,0.355,0.256,0.166,0.111,0.145,0.099,0.073,0.081,0.1,0.142,0.097,0.095,0.067,0.116,0.089,0.061,0.037]},"A110":{"t":48.6499,"d":0.74,"p":[0.023,0.016,0.015,0.016,0.02,0.019,0.028,0.019,0.023,0.037,0.034,0.023,0.121,0.043,0.014,0.059,0.043,0.017,0.014,0.016,0.324,0.602,0.668,0.727,0.862,0.898,0.736,0.249,0.133,0.728,0.758,0.612,0.491,0.113,0.076,0.056,0.056,0.188,0.055,0.073,0.598,0.856,1.0,0.782,0.573,0.143,0.092,0.106,0.101,0.041,0.044,0.046,0.05,0.035,0.036,0.028,0.022,0.027,0.015,0.014,0.01,0.014,0.01,0.008]},"A161":{"t":49.5399,"d":0.6,"p":[0.016,0.013,0.012,0.022,0.018,0.017,0.014,0.012,0.01,0.017,0.012,0.014,0.014,0.025,0.018,0.019,0.014,0.014,0.02,0.022,0.021,0.018,0.018,0.207,0.303,0.564,0.892,0.973,0.959,1.0,0.961,0.878,0.338,0.189,0.262,0.671,0.491,0.31,0.252,0.124,0.098,0.135,0.098,0.099,0.072,0.056,0.063,0.055,0.054,0.044,0.034,0.023,0.029,0.025,0.032,0.027,0.024,0.018,0.019,0.017,0.021,0.017,0.018,0.015]},"A162":{"t":50.2899,"d":1.03,"p":[0.009,0.01,0.009,0.015,0.016,0.011,0.012,0.013,0.009,0.011,0.013,0.011,0.009,0.01,0.185,0.412,0.633,0.745,0.776,0.723,0.571,0.379,0.632,0.696,0.331,0.556,0.844,1.0,0.928,0.975,0.914,0.746,0.7,0.65,0.75,0.78,0.811,0.809,0.77,0.804,0.893,0.901,0.865,0.921,0.61,0.249,0.226,0.315,0.254,0.121,0.122,0.078,0.062,0.059,0.053,0.044,0.038,0.04,0.018,0.025,0.017,0.018,0.015,0.014]},"C322":{"t":51.4699,"d":0.83,"p":[0.025,0.019,0.021,0.026,0.023,0.015,0.024,0.023,0.014,0.021,0.018,0.019,0.022,0.028,0.02,0.054,0.141,0.171,0.26,0.489,0.748,0.621,0.707,0.816,0.948,0.919,0.989,0.988,0.93,0.988,1.0,0.994,0.972,0.905,0.743,0.761,0.772,0.812,0.828,0.809,0.801,0.859,0.871,0.778,0.583,0.659,0.617,0.353,0.266,0.055,0.049,0.042,0.028,0.023,0.034,0.026,0.033,0.023,0.026,0.027,0.022,0.031,0.021,0.027]},"C323":{"t":52.4499,"d":0.8,"p":[0.087,0.064,0.059,0.151,0.094,0.572,0.665,0.175,0.569,0.452,0.572,0.103,0.108,0.09,0.302,0.079,0.239,0.713,0.825,0.923,1.0,0.687,0.52,0.448,0.431,0.492,0.451,0.468,0.454,0.409,0.683,0.912,0.71,0.745,0.49,0.615,0.707,0.679,0.46,0.699,0.708,0.55,0.588,0.695,0.585,0.553,0.71,0.655,0.409,0.312,0.161,0.095,0.097,0.161,0.161,0.29,0.327,0.561,0.497,0.939,0.872,0.614,0.42,0.386]},"C324":{"t":53.3999,"d":0.75,"p":[0.024,0.033,0.033,0.028,0.026,0.029,0.025,0.026,0.038,0.027,0.03,0.037,0.061,0.038,0.028,0.027,0.028,0.103,0.164,0.302,0.438,0.726,0.727,0.769,0.766,0.757,0.752,0.983,0.944,0.894,0.703,0.732,0.746,0.774,0.912,0.94,1.0,0.966,0.924,0.91,0.912,0.879,0.867,0.89,0.819,0.646,0.607,0.185,0.08,0.069,0.048,0.046,0.058,0.07,0.04,0.04,0.034,0.042,0.028,0.034,0.036,0.035,0.037,0.035]},"A127":{"t":54.2999,"d":1.2,"p":[0.071,0.095,0.163,0.187,0.124,0.057,0.023,0.024,0.01,0.012,0.008,0.119,0.523,0.547,0.755,0.938,0.841,0.528,0.68,0.815,0.843,0.667,0.633,0.792,0.824,0.811,0.781,0.806,0.898,0.937,0.819,0.852,0.721,0.818,0.83,0.798,1.0,0.909,0.894,0.851,0.852,0.892,0.842,0.741,0.884,0.672,0.794,0.617,0.674,0.613,0.562,0.463,0.246,0.103,0.082,0.055,0.099,0.134,0.159,0.096,0.063,0.03,0.019,0.02]},"A169":{"t":55.6499,"d":1.49,"p":[0.015,0.009,0.011,0.009,0.01,0.009,0.008,0.008,0.012,0.211,1.0,0.997,0.522,0.223,0.201,0.489,0.667,0.718,0.715,0.481,0.628,0.694,0.636,0.782,0.49,0.468,0.511,0.497,0.556,0.529,0.496,0.458,0.492,0.621,0.511,0.542,0.449,0.626,0.48,0.53,0.468,0.449,0.454,0.427,0.456,0.6,0.614,0.584,0.591,0.659,0.666,0.494,0.549,0.478,0.477,0.109,0.062,0.027,0.031,0.046,0.069,0.154,0.056,0.022]},"A170":{"t":57.2899,"d":0.92,"p":[0.008,0.01,0.01,0.011,0.009,0.008,0.011,0.019,0.012,0.009,0.011,0.052,0.045,0.021,0.024,0.181,0.316,0.766,0.885,0.851,0.858,0.805,0.779,1.0,0.719,0.82,0.596,0.742,0.814,0.831,0.799,0.674,0.6,0.544,0.525,0.532,0.552,0.518,0.498,0.515,0.485,0.458,0.467,0.475,0.374,0.34,0.327,0.39,0.334,0.162,0.086,0.065,0.039,0.039,0.041,0.035,0.037,0.038,0.032,0.021,0.015,0.011,0.009,0.007]},"A171":{"t":58.3599,"d":0.62,"p":[0.012,0.02,0.022,0.021,0.018,0.022,0.021,0.021,0.022,0.019,0.017,0.025,0.022,0.024,0.022,0.022,0.028,0.018,0.02,0.023,0.032,0.033,0.247,0.582,0.458,0.544,0.339,0.531,0.655,0.927,0.892,0.685,0.707,0.605,0.531,0.958,1.0,0.737,0.669,0.53,0.8,0.376,0.331,0.265,0.16,0.092,0.091,0.062,0.041,0.038,0.04,0.042,0.032,0.037,0.031,0.032,0.033,0.024,0.022,0.031,0.02,0.024,0.023,0.019]},"A139":{"t":59.1299,"d":1.45,"p":[0.009,0.008,0.007,0.012,0.021,0.015,0.01,0.009,0.008,0.016,0.371,0.451,1.0,0.949,0.642,0.601,0.548,0.48,0.517,0.583,0.503,0.368,0.434,0.502,0.444,0.512,0.504,0.453,0.4,0.292,0.208,0.32,0.397,0.377,0.527,0.523,0.777,0.777,0.7,0.722,0.787,0.794,0.639,0.679,0.732,0.616,0.571,0.598,0.583,0.589,0.787,0.767,0.701,0.598,0.132,0.106,0.046,0.026,0.024,0.017,0.017,0.014,0.013,0.009]},"B298":{"t":60.7299,"d":0.73,"p":[0.116,0.137,0.132,0.091,0.094,0.08,0.048,0.035,0.026,0.028,0.026,0.028,0.03,0.031,0.03,0.031,0.046,0.267,0.424,0.397,0.567,0.506,0.377,0.187,0.126,0.137,0.094,0.057,0.056,0.051,0.029,0.035,0.043,0.046,0.413,0.456,0.404,1.0,0.486,0.529,0.291,0.427,0.348,0.202,0.114,0.17,0.165,0.14,0.119,0.105,0.057,0.065,0.073,0.054,0.245,0.327,0.366,0.322,0.192,0.282,0.306,0.165,0.093,0.114]},"B299":{"t":61.6099,"d":1.37,"p":[0.021,0.026,0.138,0.191,0.106,0.162,0.07,0.043,0.027,0.024,0.106,0.291,0.285,0.218,0.082,0.051,0.039,0.033,0.026,0.106,0.127,0.05,0.026,0.026,0.026,0.312,0.388,0.518,0.214,0.111,0.088,0.063,0.054,0.107,0.139,0.148,0.106,0.039,0.021,0.013,0.01,0.009,0.007,0.007,0.007,0.007,0.022,0.305,0.468,1.0,0.993,0.513,0.274,0.193,0.111,0.062,0.066,0.043,0.018,0.015,0.012,0.009,0.158,0.102]},"B300":{"t":63.1299,"d":1.11,"p":[0.006,0.005,0.007,0.006,0.006,0.005,0.006,0.004,0.005,0.006,0.023,0.082,0.221,0.287,0.688,0.765,0.671,0.657,0.86,0.822,1.0,0.718,0.47,0.512,0.436,0.447,0.398,0.395,0.275,0.372,0.447,0.377,0.323,0.26,0.308,0.299,0.3,0.265,0.26,0.209,0.271,0.274,0.263,0.238,0.224,0.344,0.319,0.235,0.302,0.141,0.151,0.166,0.124,0.11,0.111,0.036,0.024,0.08,0.021,0.013,0.014,0.009,0.009,0.008]},"A216":{"t":64.3899,"d":0.52,"p":[0.012,0.012,0.014,0.009,0.014,0.01,0.013,0.009,0.011,0.01,0.009,0.011,0.006,0.008,0.01,0.01,0.012,0.009,0.008,0.009,0.012,0.014,0.047,0.231,0.144,0.134,0.145,0.152,0.158,0.246,0.495,0.633,0.856,1.0,0.799,0.284,0.202,0.314,0.347,0.191,0.075,0.044,0.034,0.037,0.032,0.036,0.049,0.109,0.148,0.233,0.21,0.073,0.06,0.102,0.128,0.05,0.051,0.019,0.021,0.018,0.017,0.017,0.01,0.006]},"A217":{"t":65.0599,"d":0.55,"p":[0.004,0.004,0.008,0.008,0.009,0.016,0.03,0.036,0.015,0.02,0.022,0.015,0.013,0.014,0.016,0.013,0.009,0.007,0.008,0.011,0.009,0.014,0.01,0.014,0.011,0.013,0.016,0.097,0.823,1.0,0.818,0.909,0.714,0.684,0.63,0.653,0.565,0.134,0.122,0.088,0.067,0.066,0.042,0.035,0.032,0.043,0.027,0.02,0.017,0.011,0.011,0.016,0.009,0.008,0.009,0.007,0.006,0.007,0.006,0.006,0.007,0.007,0.008,0.005]},"A226":{"t":65.7599,"d":0.97,"p":[0.022,0.018,0.016,0.013,0.013,0.014,0.014,0.014,0.013,0.016,0.017,0.037,0.033,0.033,0.128,0.308,0.449,0.694,0.64,0.761,0.756,0.713,0.53,0.633,0.719,0.554,0.497,0.587,0.719,0.74,0.839,0.798,0.807,0.858,0.922,0.896,0.897,0.903,0.876,0.882,0.867,0.731,0.841,0.869,1.0,0.875,0.789,0.764,0.732,0.246,0.085,0.062,0.055,0.038,0.043,0.054,0.039,0.028,0.025,0.025,0.023,0.02,0.018,0.01]},"D348":{"t":66.8799,"d":0.97,"p":[0.019,0.015,0.018,0.016,0.014,0.018,0.013,0.013,0.014,0.015,0.026,0.095,0.224,0.215,0.44,0.61,0.777,0.79,0.557,0.484,0.564,0.624,0.611,0.521,0.347,0.537,0.625,0.758,0.755,0.744,0.898,0.947,0.928,1.0,0.782,0.502,0.487,0.552,0.465,0.451,0.416,0.393,0.433,0.486,0.432,0.467,0.312,0.268,0.263,0.303,0.282,0.249,0.24,0.171,0.16,0.17,0.055,0.036,0.033,0.027,0.05,0.025,0.102,0.129]},"D350":{"t":67.9999,"d":0.57,"p":[0.003,0.007,0.005,0.006,0.005,0.004,0.006,0.004,0.005,0.006,0.005,0.006,0.005,0.005,0.007,0.006,0.007,0.005,0.006,0.005,0.005,0.005,0.008,0.017,0.332,0.531,0.608,0.627,0.524,0.855,0.84,1.0,0.613,0.45,0.178,0.127,0.458,0.719,0.733,0.589,0.486,0.363,0.196,0.106,0.072,0.059,0.032,0.042,0.046,0.041,0.019,0.032,0.02,0.019,0.017,0.015,0.023,0.013,0.013,0.012,0.016,0.011,0.013,0.008]},"D353":{"t":68.7199,"d":0.84,"p":[0.037,0.032,0.031,0.029,0.101,0.04,0.047,0.235,0.187,0.052,0.061,0.029,0.032,0.038,0.042,0.327,0.584,0.852,0.615,0.413,0.409,0.62,0.468,1.0,0.794,0.806,0.922,0.654,0.541,0.625,0.61,0.677,0.828,0.835,0.614,0.714,0.688,0.607,0.723,0.626,0.54,0.513,0.478,0.495,0.383,0.671,0.525,0.539,0.329,0.258,0.242,0.14,0.259,0.526,0.471,0.375,0.297,0.31,0.247,0.272,0.196,0.255,0.284,0.11]},"D354":{"t":69.7099,"d":0.69,"p":[0.013,0.011,0.013,0.01,0.013,0.01,0.012,0.017,0.026,0.008,0.01,0.014,0.017,0.011,0.007,0.007,0.011,0.007,0.01,0.155,0.303,0.554,0.816,1.0,0.971,0.597,0.518,0.256,0.109,0.083,0.631,0.734,0.804,0.632,0.777,0.607,0.467,0.523,0.507,0.354,0.212,0.095,0.096,0.084,0.083,0.289,0.085,0.067,0.101,0.066,0.071,0.058,0.033,0.021,0.018,0.024,0.013,0.015,0.012,0.013,0.01,0.012,0.018,0.033]},"D358":{"t":70.5499,"d":0.54,"p":[0.178,0.267,0.303,0.318,0.293,0.497,0.421,0.582,0.37,0.301,0.252,0.245,0.226,0.183,0.239,0.251,0.164,0.154,0.183,0.195,0.239,0.266,0.389,0.414,0.472,0.609,0.514,0.608,0.875,1.0,0.961,0.727,0.588,0.402,0.471,0.346,0.493,0.499,0.533,0.408,0.346,0.273,0.198,0.168,0.199,0.14,0.246,0.176,0.169,0.17,0.157,0.164,0.123,0.126,0.116,0.079,0.026,0.028,0.024,0.023,0.021,0.024,0.022,0.009]},"D369":{"t":71.2399,"d":0.55,"p":[0.024,0.029,0.028,0.037,0.035,0.03,0.057,0.27,0.15,0.063,0.052,0.072,0.185,0.23,0.3,0.193,0.12,0.066,0.05,0.065,0.178,0.227,0.238,0.157,0.219,0.304,0.383,0.417,0.362,0.435,0.291,1.0,0.589,0.274,0.345,0.37,0.27,0.41,0.475,0.454,0.306,0.271,0.116,0.079,0.102,0.077,0.061,0.057,0.06,0.051,0.058,0.061,0.056,0.06,0.314,0.343,0.075,0.085,0.057,0.078,0.051,0.052,0.04,0.038]},"D371":{"t":71.9399,"d":0.48,"p":[0.03,0.044,0.059,0.057,0.093,0.124,0.139,0.339,0.127,0.114,0.111,0.116,0.155,0.179,0.157,0.207,0.127,0.097,0.111,0.099,0.135,0.099,0.081,0.07,0.074,0.077,0.104,0.084,0.106,0.107,0.175,0.308,0.412,1.0,0.808,0.181,0.171,0.118,0.12,0.124,0.068,0.038,0.046,0.046,0.035,0.031,0.032,0.019,0.025,0.017,0.014,0.021,0.022,0.02,0.017,0.017,0.018,0.013,0.071,0.21,0.106,0.054,0.057,0.022]},"D379":{"t":72.5699,"d":0.7,"p":[0.043,0.038,0.03,0.033,0.042,0.033,0.034,0.029,0.029,0.075,0.164,0.085,0.037,0.077,0.12,0.078,0.103,0.094,0.093,0.101,0.319,1.0,0.814,0.825,0.728,0.661,0.255,0.063,0.066,0.07,0.533,0.796,0.767,0.71,0.671,0.539,0.271,0.093,0.064,0.389,0.48,0.454,0.848,0.485,0.52,0.46,0.119,0.065,0.056,0.041,0.052,0.029,0.037,0.029,0.036,0.025,0.032,0.027,0.032,0.029,0.035,0.045,0.026,0.023]},"D381":{"t":73.4199,"d":1.12,"p":[0.044,0.055,0.042,0.047,0.043,0.033,0.028,0.037,0.177,0.127,0.129,0.216,0.314,0.74,1.0,0.831,0.803,0.71,0.619,0.515,0.736,0.586,0.585,0.661,0.728,0.742,0.6,0.584,0.24,0.116,0.119,0.101,0.125,0.14,0.199,0.178,0.221,0.213,0.186,0.208,0.318,0.321,0.369,0.368,0.531,0.499,0.463,0.225,0.221,0.137,0.142,0.158,0.189,0.135,0.042,0.036,0.037,0.031,0.038,0.029,0.027,0.021,0.03,0.029]},"D383":{"t":74.6899,"d":0.73,"p":[0.011,0.017,0.014,0.014,0.018,0.018,0.015,0.016,0.019,0.017,0.018,0.013,0.014,0.018,0.014,0.036,0.06,0.126,0.128,0.181,0.462,0.877,0.837,0.663,0.726,0.542,0.397,0.503,0.529,0.369,0.314,0.309,0.333,0.319,0.457,0.661,0.476,0.636,0.583,0.637,0.931,1.0,0.964,0.738,0.504,0.218,0.137,0.104,0.095,0.073,0.06,0.04,0.044,0.028,0.022,0.017,0.021,0.018,0.018,0.026,0.021,0.016,0.022,0.015]},"D387":{"t":75.5699,"d":1.37,"p":[0.073,0.089,0.107,0.135,0.139,0.213,0.179,0.105,0.207,0.264,0.309,0.398,0.535,0.88,0.902,0.957,1.0,0.938,0.646,0.557,0.642,0.741,0.707,0.352,0.32,0.374,0.325,0.235,0.277,0.283,0.258,0.177,0.283,0.323,0.26,0.263,0.465,0.392,0.42,0.381,0.255,0.427,0.602,0.524,0.46,0.375,0.411,0.26,0.173,0.23,0.262,0.353,0.219,0.196,0.184,0.177,0.137,0.31,0.271,0.201,0.199,0.308,0.078,0.082]},"D389":{"t":77.0899,"d":1.24,"p":[0.173,0.146,0.205,0.137,0.085,0.052,0.054,0.089,0.099,0.299,0.19,0.461,0.693,0.506,0.401,0.367,0.583,0.513,0.585,0.653,0.695,0.942,1.0,0.705,0.816,0.897,0.72,0.72,0.717,0.771,0.732,0.825,0.779,0.662,0.854,0.936,0.841,0.911,0.907,0.902,0.871,0.861,0.695,0.407,0.498,0.744,0.716,0.546,0.461,0.637,0.561,0.542,0.621,0.358,0.188,0.14,0.2,0.208,0.214,0.182,0.241,0.194,0.181,0.108]},"D391":{"t":78.4799,"d":0.49,"p":[0.018,0.038,0.028,0.039,0.039,0.031,0.034,0.023,0.035,0.019,0.024,0.025,0.022,0.018,0.151,0.134,0.052,0.031,0.033,0.019,0.037,0.036,0.028,0.048,0.056,0.039,0.044,0.038,0.038,0.051,0.371,0.726,0.673,0.949,1.0,0.469,0.216,0.284,0.118,0.128,0.236,0.12,0.138,0.127,0.085,0.07,0.054,0.051,0.053,0.101,0.109,0.048,0.062,0.052,0.173,0.725,0.578,0.185,0.137,0.12,0.092,0.077,0.053,0.023]},"D393":{"t":79.1199,"d":0.86,"p":[0.021,0.019,0.022,0.068,0.045,0.026,0.035,0.03,0.027,0.026,0.024,0.021,0.018,0.019,0.02,0.02,0.242,0.315,0.63,0.546,0.702,0.751,0.627,0.624,0.475,0.705,0.48,0.447,0.615,0.683,0.779,0.709,0.888,1.0,0.748,0.809,0.934,0.916,0.873,0.914,0.913,0.748,0.477,0.568,0.879,0.816,0.593,0.222,0.208,0.15,0.105,0.075,0.058,0.031,0.033,0.178,0.116,0.067,0.05,0.033,0.022,0.023,0.125,0.314]},"D397":{"t":80.1299,"d":0.52,"p":[0.013,0.024,0.016,0.023,0.017,0.021,0.026,0.017,0.179,0.167,0.139,0.072,0.046,0.041,0.158,0.283,0.187,0.147,0.156,0.152,0.241,0.333,0.347,0.327,0.305,0.255,0.191,0.246,0.318,0.631,0.643,0.738,0.839,0.876,1.0,0.94,0.746,0.279,0.282,0.202,0.159,0.103,0.119,0.061,0.078,0.057,0.048,0.037,0.042,0.033,0.028,0.053,0.037,0.034,0.036,0.04,0.034,0.027,0.028,0.022,0.036,0.028,0.028,0.013]},"D399":{"t":80.7999,"d":1.28,"p":[0.061,0.055,0.041,0.043,0.024,0.045,0.125,0.189,0.286,0.157,0.294,0.378,0.527,0.457,0.53,0.504,0.58,0.496,0.774,0.737,0.561,0.778,0.89,0.578,0.388,0.496,0.436,0.425,0.633,0.482,0.506,0.616,0.504,0.565,0.601,0.521,0.452,0.257,0.357,0.193,0.293,0.972,1.0,0.586,0.209,0.567,0.141,0.082,0.067,0.053,0.033,0.63,0.662,0.251,0.117,0.086,0.082,0.036,0.036,0.046,0.027,0.016,0.018,0.027]},"E419":{"t":82.2299,"d":1.17,"p":[0.012,0.015,0.014,0.011,0.021,0.09,0.023,0.026,0.033,0.106,0.044,0.017,0.586,0.607,0.863,1.0,0.766,0.723,0.496,0.339,0.443,0.095,0.042,0.305,0.571,0.464,0.477,0.384,0.455,0.534,0.53,0.501,0.505,0.464,0.237,0.35,0.369,0.608,0.502,0.328,0.389,0.415,0.464,0.62,0.699,0.339,0.351,0.537,0.269,0.483,0.325,0.19,0.377,0.186,0.084,0.05,0.031,0.017,0.011,0.015,0.012,0.01,0.011,0.291]},"E424":{"t":83.5499,"d":0.83,"p":[0.014,0.014,0.015,0.016,0.019,0.011,0.009,0.017,0.022,0.019,0.012,0.013,0.011,0.015,0.017,0.015,0.017,0.021,0.441,0.569,0.564,0.362,0.124,0.065,0.054,0.05,0.039,0.045,0.036,0.037,0.038,0.033,0.024,0.023,0.009,0.01,0.016,0.021,0.024,0.018,0.021,0.13,0.762,1.0,0.983,0.892,0.629,0.29,0.181,0.115,0.091,0.081,0.059,0.042,0.05,0.047,0.163,0.151,0.045,0.031,0.026,0.023,0.02,0.019]},"E425":{"t":84.5299,"d":1.15,"p":[0.009,0.005,0.006,0.017,0.007,0.006,0.004,0.006,0.006,0.01,0.009,0.012,0.121,0.791,0.608,0.161,0.133,0.065,0.041,0.025,0.024,0.028,0.018,0.028,0.024,0.192,1.0,0.994,0.982,0.119,0.055,0.051,0.048,0.029,0.02,0.02,0.013,0.012,0.008,0.009,0.007,0.007,0.008,0.007,0.009,0.085,0.111,0.265,0.75,0.679,0.294,0.167,0.094,0.071,0.055,0.038,0.028,0.039,0.06,0.135,0.114,0.036,0.03,0.02]},"E430":{"t":85.8299,"d":0.92,"p":[0.028,0.041,0.032,0.042,0.014,0.015,0.015,0.017,0.022,0.061,0.337,0.066,0.058,0.053,0.056,0.388,0.495,0.586,0.548,0.705,0.575,0.941,0.949,0.878,1.0,0.832,0.746,0.788,0.704,0.742,0.882,0.938,0.633,0.852,0.947,0.995,0.76,0.678,0.849,0.815,0.695,0.669,0.646,0.632,0.65,0.624,0.537,0.377,0.383,0.329,0.148,0.072,0.121,0.166,0.055,0.044,0.053,0.048,0.047,0.04,0.039,0.038,0.04,0.039]},"E442":{"t":86.8999,"d":0.76,"p":[0.006,0.006,0.003,0.008,0.007,0.006,0.004,0.004,0.005,0.008,0.005,0.006,0.006,0.006,0.006,0.004,0.006,0.006,0.015,0.305,0.389,0.316,0.405,0.821,0.945,0.964,0.832,0.869,0.984,1.0,0.955,0.823,0.736,0.627,0.493,0.448,0.798,0.935,0.816,0.738,0.809,0.869,0.724,0.689,0.548,0.415,0.113,0.084,0.044,0.027,0.022,0.019,0.019,0.018,0.024,0.021,0.021,0.025,0.021,0.021,0.018,0.016,0.016,0.007]},"E444":{"t":87.8099,"d":0.74,"p":[0.007,0.007,0.008,0.007,0.005,0.006,0.006,0.005,0.008,0.007,0.007,0.006,0.007,0.005,0.005,0.006,0.008,0.007,0.073,0.251,0.316,0.344,0.405,0.467,0.487,0.437,0.29,0.365,0.478,0.442,0.198,0.138,0.03,0.031,0.024,0.022,0.056,0.316,0.304,0.495,0.523,0.667,0.896,1.0,0.954,0.546,0.213,0.05,0.063,0.048,0.033,0.039,0.031,0.023,0.017,0.02,0.017,0.016,0.016,0.03,0.159,0.112,0.065,0.035]},"E446":{"t":88.6999,"d":0.64,"p":[0.023,0.018,0.017,0.016,0.014,0.009,0.182,0.039,0.016,0.012,0.013,0.012,0.013,0.012,0.016,0.014,0.014,0.011,0.015,0.015,0.016,0.224,0.409,0.363,0.144,0.033,0.028,0.761,1.0,0.833,0.764,0.775,0.746,0.566,0.528,0.527,0.499,0.394,0.244,0.402,0.33,0.465,0.391,0.164,0.202,0.155,0.071,0.049,0.046,0.056,0.032,0.059,0.091,0.365,0.233,0.259,0.063,0.072,0.064,0.032,0.021,0.022,0.019,0.025]},"E451":{"t":89.4899,"d":0.56,"p":[0.005,0.008,0.005,0.003,0.003,0.003,0.002,0.002,0.001,0.003,0.002,0.002,0.002,0.002,0.002,0.002,0.002,0.002,0.002,0.002,0.001,0.002,0.002,0.001,0.01,0.01,0.102,0.528,0.923,1.0,0.868,0.781,0.932,0.735,0.641,0.523,0.481,0.235,0.117,0.113,0.133,0.091,0.039,0.04,0.029,0.017,0.028,0.035,0.016,0.014,0.01,0.01,0.008,0.008,0.008,0.011,0.009,0.008,0.007,0.005,0.005,0.005,0.003,0.003]}},"full":[{"title":"Dinner time, part one","dur":165.5,"file":"out/full-1.mp3"},{"title":"Dinner time, part two","dur":170.59,"file":"out/full-2.mp3"}]};
+/* after the audio stops, the finished message stays up on its own for a beat */
+const HOLD = 5.0;
+const T_BOOT = DUR_DAD, T_BABY = DUR_DAD + GAP, T_END = T_BABY + DUR_BABY;
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* music levels: the bed sits well under him, then opens up once he is done */
+const M_TALK = 0.42, M_END = 0.78, M_BOARD = 0.5;
+
+const $ = function(id){ return document.getElementById(id); };
+const clamp = function(v,a,b){ return v<a?a:(v>b?b:v); };
+
+/* ---- audio ---- */
+let ctx, analyser, freqData, musicGain, clipGain;
+let bufDad, bufBaby, bufMusic, bufBoard;
+let t0 = null, running = false, msrc = null, boardDelay = 0;
+
+const b64 = function(s){
+  const bin = atob(s), n = bin.length, u = new Uint8Array(n);
+  for (let i=0;i<n;i++) u[i] = bin.charCodeAt(i);
+  return u.buffer;
+};
+function isUrl(s){
+  return typeof s === "string" && !s.startsWith("data:") && (s.endsWith(".mp3") || s.includes("/") || s.length < 500);
+}
+const audioPreloadCache = new Map();
+function prefetchAudio(url){
+  if (isUrl(url) && !audioPreloadCache.has(url)) {
+    const p = fetch(url).then(function(r){
+      if (!r.ok) throw new Error("HTTP " + r.status + " fetching " + url);
+      return r.arrayBuffer();
+    }).catch(function(err){
+      console.warn("Preload error for " + url, err);
+      audioPreloadCache.delete(url);
+    });
+    audioPreloadCache.set(url, p);
+  }
+}
+try {
+  prefetchAudio(AUDIO_DAD);
+  prefetchAudio(AUDIO_BABY);
+  prefetchAudio(AUDIO_MUSIC);
+} catch(e){}
+
+async function loadAudioBuffer(src){
+  if (isUrl(src)) {
+    let ab;
+    if (audioPreloadCache.has(src)) {
+      try { ab = await audioPreloadCache.get(src); } catch(e){}
+    }
+    if (!ab) {
+      const res = await fetch(src);
+      if (!res.ok) throw new Error("Failed to load audio: " + src);
+      ab = await res.arrayBuffer();
+    }
+    return await ctx.decodeAudioData(ab.slice(0));
+  } else {
+    return await ctx.decodeAudioData(b64(src));
+  }
+}
+
+/* the board mp3 starts with BOARD.lead seconds of true silence; whatever the
+   decoder prepends on top of that shifts every clip offset, so measure it */
+function measureDelay(buf){
+  if (!buf) return 0;
+  const d = buf.getChannelData(0), n = Math.min(d.length, buf.sampleRate*2);
+  for (let i=0;i<n;i++) if (Math.abs(d[i]) > 0.004) return i/buf.sampleRate - BOARD.lead;
+  return 0;
+}
+async function prime(){
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = ctx.createAnalyser();
+  analyser.fftSize = 512;
+  analyser.smoothingTimeConstant = 0.72;
+  analyser.connect(ctx.destination);
+  freqData = new Uint8Array(analyser.frequencyBinCount);
+  musicGain = ctx.createGain(); musicGain.gain.value = 0; musicGain.connect(ctx.destination);
+  clipGain  = ctx.createGain(); clipGain.gain.value  = 1; clipGain.connect(ctx.destination);
+  const p = await Promise.all([
+    loadAudioBuffer(AUDIO_DAD),
+    loadAudioBuffer(AUDIO_BABY),
+    loadAudioBuffer(AUDIO_MUSIC)
+  ]);
+  bufDad = p[0]; bufBaby = p[1]; bufMusic = p[2];
+  loadAudioBuffer(AUDIO_BOARD).then(function(buf){
+    bufBoard = buf;
+    boardDelay = measureDelay(bufBoard);
+  }).catch(function(err){
+    console.error("Board audio load error:", err);
+  });
+}
+function play(buf, at){
+  const s = ctx.createBufferSource();
+  s.buffer = buf; s.connect(analyser); s.start(at);
+  return s;
+}
+function amp(){
+  if (!analyser) return 0;
+  analyser.getByteFrequencyData(freqData);
+  let sum = 0;
+  for (let i=1;i<64;i++) sum += freqData[i];
+  return clamp(sum/(63*140), 0, 1);
+}
+function musicTo(v, secs){
+  const g = musicGain.gain, now = ctx.currentTime;
+  g.cancelScheduledValues(now);
+  g.setValueAtTime(g.value, now);
+  g.linearRampToValueAtTime(v, now + secs);
+}
+
+/* ---- stage direction typing (papa) ---- */
+const DIR_TEXT = "Papa asks me something…";
+function fillDir(){
+  const el = $("dir");
+  el.innerHTML = "";
+  DIR_TEXT.split("").forEach(function(c,i){
+    const s = document.createElement("span");
+    /* the spans are inline-block, so a plain space collapses to nothing */
+    s.textContent = (c === " " ? " " : c);
+    s.style.animationDelay = (0.25 + i*0.035) + "s";
+    el.appendChild(s);
+  });
+}
+
+/* ---- finale words ---- */
+function fillEnd(){
+  const el = $("endH");
+  el.innerHTML = "";
+  "Happy 1st Birthday as my Mamma!".split(" ").forEach(function(w,i){
+    const s = document.createElement("span");
+    s.textContent = w;
+    s.style.transitionDelay = (i*0.11) + "s";
+    el.appendChild(s);
+    el.appendChild(document.createTextNode(" "));
+  });
+}
+
+/* ---- babble glyphs ---- */
+const GLYPH = ["bh","gaa","ooh","mm","aa","buh","ngh","eh","oo","ah","gah","muh","ba","da","hnn","aw","ee","uhh"];
+let rawT = 0, rawStr = "";
+function babble(a, now){
+  if (now - rawT < 0.22) return rawStr;          // slow churn - it is a texture, not a readout
+  rawT = now;
+  const n = 3 + Math.round(a*5), parts = [];
+  for (let i=0;i<n;i++) parts.push(GLYPH[(Math.random()*GLYPH.length)|0]);
+  rawStr = parts.join(" · ");
+  return rawStr;
+}
+
+/* ---- waveform ---- */
+const cv = $("wave"), cx = cv.getContext("2d");
+let cw = 0, ch = 0;
+function sizeWave(){
+  const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  cw = Math.max(1, Math.round(r.width)); ch = Math.max(1, Math.round(r.height));
+  cv.width = cw*d; cv.height = ch*d; cx.setTransform(d,0,0,d,0,0);
+}
+function drawWave(env, prog, a, gold){
+  cx.clearRect(0,0,cw,ch);
+  const step = 4, barW = 2;
+  const bars = Math.max(8, Math.floor(cw/step));
+  const mid = ch/2, head = prog*bars;
+  for (let i=0;i<bars;i++){
+    const v = env[Math.min(env.length-1, Math.floor(i/bars*env.length))];
+    const near = clamp(1 - Math.abs(i-head)/9, 0, 1);
+    const h = Math.max(1.5, v*(ch*0.92)*(1 + near*a*1.5));
+    const past = i <= head;
+    if (gold) cx.fillStyle = past ? "rgba(233,186,80," + (0.55 + near*0.45) + ")" : "rgba(247,242,234,0.10)";
+    else      cx.fillStyle = past ? "rgba(247,242,234," + (0.42 + near*0.50) + ")" : "rgba(247,242,234,0.09)";
+    cx.fillRect(i*step, mid-h/2, barW, h);
+  }
+  cx.fillStyle = gold ? "rgba(255,217,138,.95)" : "rgba(247,242,234,.8)";
+  cx.fillRect(head*step - 0.5, 0, 1, ch);
+}
+function mmss(s){
+  s = Math.max(0, s|0);
+  return (s/60|0) + ":" + String(s%60).padStart(2,"0");
+}
+
+/* ---- particles ---- */
+const pc = $("parts"), pcx = pc.getContext("2d");
+let P = [], pOn = false, lastT = 0;
+function sizeParts(){
+  const d = window.devicePixelRatio || 1;
+  pc.width = innerWidth*d; pc.height = innerHeight*d; pcx.setTransform(d,0,0,d,0,0);
+}
+function seedParts(){
+  if (RM) return;
+  P = [];
+  for (let i=0;i<46;i++) P.push({
+    x: Math.random()*innerWidth,
+    y: innerHeight + Math.random()*innerHeight*0.9,
+    r: 1 + Math.random()*2.6,
+    v: 12 + Math.random()*28,
+    d: Math.random()*Math.PI*2,
+    o: 0.15 + Math.random()*0.5,
+    heart: Math.random() < 0.22
+  });
+  pOn = true;
+}
+function drawParts(now){
+  if (!pOn) return;
+  const dt = Math.min(0.05, now - lastT);
+  pcx.clearRect(0,0,innerWidth,innerHeight);
+  for (const p of P){
+    p.y -= p.v*dt; p.d += dt*1.1; p.x += Math.sin(p.d)*10*dt;
+    if (p.y < -30){ p.y = innerHeight + 20; p.x = Math.random()*innerWidth; }
+    if (p.heart){
+      pcx.save(); pcx.translate(p.x, p.y); pcx.scale(p.r/2.4, p.r/2.4);
+      pcx.globalAlpha = p.o*0.9; pcx.fillStyle = "#ffb9c6";
+      pcx.beginPath();
+      pcx.moveTo(0,3);
+      pcx.bezierCurveTo(-4,-1,-3,-5,0,-3);
+      pcx.bezierCurveTo(3,-5,4,-1,0,3);
+      pcx.fill(); pcx.restore();
+    } else {
+      pcx.globalAlpha = p.o; pcx.fillStyle = "#ffd98a";
+      pcx.beginPath(); pcx.arc(p.x, p.y, p.r, 0, 6.284); pcx.fill();
+    }
+  }
+  pcx.globalAlpha = 1;
+}
+
+/* ---- phases ---- */
+const L = { title:$("title"), papa:$("papa"), boot:$("boot"), talk:$("talk"), end:$("end") };
+let phase = "title", shown = -1, bootStep = -1, held = false;
+function setPhase(p){
+  if (p === phase) return;
+  phase = p;
+  for (const k in L) L[k].classList.toggle("on", k === p);
+  const chip = $("chip");
+  if (p === "papa"){ chip.className = "on rec"; $("chipTxt").textContent = "rec · papa"; }
+  else if (p === "boot"){ chip.className = "on"; $("chipTxt").textContent = "decoding"; }
+  else if (p === "talk"){ chip.className = "on live"; $("chipTxt").textContent = "live · divyansh"; }
+  else chip.className = "";
+  $("waveWrap").classList.toggle("on", p === "papa" || p === "boot" || p === "talk");
+  if (p === "papa") fillDir();
+  if (p === "end"){
+    document.body.classList.add("finale");
+    L.end.classList.add("on");
+    seedParts();
+    if (ctx && !held) musicTo(M_END, 3.0);   // the hold usually started this already
+  }
+}
+
+/* each sentence fades up at the bottom; the earlier ones shrink and rise, so by
+   the last line the whole message is on screen at once */
+function showLine(ln){
+  const cap = $("cap");
+  const prev = cap.querySelectorAll(".line");
+  for (let i = 0; i < prev.length; i++){
+    prev[i].classList.add("past");
+    prev[i].classList.toggle("old", i < prev.length - 1);
+  }
+  const el = document.createElement("div");
+  el.className = "line";
+  el.textContent = ln.text;
+  if (ln.em){
+    const e = document.createElement("span");
+    e.className = "em"; e.textContent = ln.em;
+    /* nbsp glues it to the last word so it never wraps alone onto a new line */
+    el.appendChild(document.createTextNode(" "));
+    el.appendChild(e);
+  }
+  cap.appendChild(el);
+}
+
+function renderTalk(tb, a, now){
+  let idx = 0;
+  for (let i=0;i<LINES.length;i++) if (tb >= LINES[i].t) idx = i;
+  if (idx !== shown){ shown = idx; showLine(LINES[idx]); }
+  $("raw").textContent = babble(a, now);
+  $("raw").style.opacity = String(0.3 + a*0.7);
+}
+
+function frame(){
+  requestAnimationFrame(frame);
+  const now = performance.now()/1000;
+  if (!running){ lastT = now; drawParts(now); return; }
+  const t = ctx.currentTime - t0;
+  const a = amp();
+
+  if (t < T_BOOT){
+    setPhase("papa");
+    drawWave(ENV_DAD, clamp(t/DUR_DAD,0,1), a, false);
+    $("tNow").textContent = mmss(t);
+    $("tEnd").textContent = mmss(DUR_DAD);
+  } else if (t < T_BABY){
+    setPhase("boot");
+    const p = clamp((t-T_BOOT)/GAP, 0, 1);
+    $("bootBar").style.width = (p*100).toFixed(1) + "%";
+    const step = Math.floor(p*3.4);
+    if (step !== bootStep){
+      bootStep = step;
+      const rows = document.querySelectorAll("#hud .row");
+      for (const r of rows){
+        const i = +r.dataset.i, done = step > i;
+        r.classList.toggle("on", step >= i);
+        r.classList.toggle("ok", done);
+        r.querySelector(".st").textContent = done ? "[ ok ]" : "···";
+      }
+    }
+    drawWave(ENV_BABY, 0, 0, true);
+    $("tNow").textContent = "0:00";
+    $("tEnd").textContent = mmss(DUR_BABY);
+  } else if (t < T_END){
+    setPhase("talk");
+    const tb = t - T_BABY;
+    renderTalk(tb, a, now);
+    drawWave(ENV_BABY, clamp(tb/DUR_BABY,0,1), a, true);
+    $("tNow").textContent = mmss(tb);
+    $("tEnd").textContent = mmss(DUR_BABY);
+  } else if (t < T_END + HOLD){
+    /* he has stopped. Strip the recording furniture away and let the whole
+       message sit there on its own while the music opens up. */
+    setPhase("talk");
+    $("chip").classList.remove("on");
+    $("waveWrap").classList.remove("on");
+    $("raw").style.opacity = "0";
+    if (!held){ held = true; musicTo(M_END, 3.5); }
+  } else {
+    setPhase("end");
+  }
+  drawParts(now);
+  lastT = now;
+}
+
+async function start(){
+  const btn = $("go");
+  btn.disabled = true;
+  await prime();
+  if (ctx.state === "suspended") await ctx.resume();
+  showBoard(false);
+  document.body.classList.remove("finale", "quick");
+  L.end.classList.remove("on");
+  pOn = false; pcx.clearRect(0,0,innerWidth,innerHeight);
+  $("cap").innerHTML = "";
+  phase = ""; shown = -1; bootStep = -1; held = false;
+  $("raw").style.opacity = "";
+  t0 = ctx.currentTime + 0.35;
+  play(bufDad, t0);
+  play(bufBaby, t0 + T_BABY);
+  /* the bed creeps in under the translator, so his voice arrives on a mood */
+  if (msrc){ try{ msrc.stop(); }catch(e){} }
+  /* silence it from RIGHT NOW, not just from T_BOOT - on a replay the gain is
+     still sitting at the finale level and would play over papa's clip */
+  musicGain.gain.cancelScheduledValues(ctx.currentTime);
+  musicGain.gain.setValueAtTime(0, ctx.currentTime);
+  musicGain.gain.setValueAtTime(0, t0 + T_BOOT);
+  musicGain.gain.linearRampToValueAtTime(M_TALK, t0 + T_BOOT + 3.4);
+  msrc = ctx.createBufferSource();
+  msrc.buffer = bufMusic; msrc.loop = true;
+  msrc.connect(musicGain);
+  msrc.start(t0 + T_BOOT);
+  running = true;
+  btn.disabled = false;
+}
+
+/* ================= Sounds of Divyansh ================= */
+const FAV_KEY = "divyansh-favourites";
+let favs = new Set();
+try { favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); } catch(e){}
+function saveFavs(){
+  try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch(e){}
+}
+
+/* ---- the two whole recordings ---- */
+/* six minutes of PCM is not worth decoding into an AudioBuffer, so these run
+   as plain media elements off a Blob URL and just duck the music while they play */
+const FULLS = [];
+let fullPlaying = null;
+
+function fullTime(s){
+  s = Math.max(0, Math.round(s));
+  return (s/60|0) + ":" + String(s%60).padStart(2,"0");
+}
+function stopFull(){
+  if (!fullPlaying) return;
+  const f = fullPlaying;
+  fullPlaying = null;
+  f.audio.pause();
+  f.row.classList.remove("now");
+  f.btn.innerHTML = "&#9654;";
+  if (ctx && document.body.classList.contains("board")) musicTo(M_BOARD, 1.2);
+}
+function makeFull(f, i){
+  if (f.audio) return f.audio;
+  const item = AUDIO_FULL[i];
+  if (isUrl(item)) {
+    f.audio = new Audio(item);
+  } else {
+    const bytes = new Uint8Array(b64(item));
+    f.audio = new Audio(URL.createObjectURL(new Blob([bytes], {type:"audio/mpeg"})));
+  }
+  f.audio.preload = "metadata";
+  f.audio.addEventListener("timeupdate", function(){
+    const d = f.audio.duration || f.meta.dur;
+    f.bar.style.width = (100 * f.audio.currentTime / d).toFixed(2) + "%";
+    f.time.textContent = fullTime(f.audio.currentTime) + " / " + fullTime(d);
+  });
+  f.audio.addEventListener("ended", function(){
+    f.bar.style.width = "0%";
+    f.time.textContent = fullTime(f.meta.dur);
+    stopFull();
+  });
+  return f.audio;
+}
+function toggleFull(f, i){
+  if (fullPlaying === f){ stopFull(); return; }
+  stopAll();
+  stopFull();
+  const a = makeFull(f, i);
+  fullPlaying = f;
+  f.row.classList.add("now");
+  f.btn.innerHTML = "&#10073;&#10073;";
+  if (ctx) musicTo(0.12, 0.7);          // get out of his way
+  a.play().catch(function(){ stopFull(); });
+}
+function buildFull(){
+  const host = $("bfull");
+  host.innerHTML = "";
+  if (!BOARD.full || !BOARD.full.length) return;
+  const sec = document.createElement("section");
+  sec.className = "sec";
+  const h = document.createElement("h3");
+  h.appendChild(document.createTextNode("The whole recording"));
+  sec.appendChild(h);
+  const note = document.createElement("div");
+  note.className = "note";
+  note.textContent = "Both dinner times, start to finish. Nothing cut out.";
+  sec.appendChild(note);
+
+  BOARD.full.forEach(function(meta, i){
+    const row = document.createElement("div");
+    row.className = "full";
+    row.innerHTML =
+      '<button class="fplay" type="button" aria-label="Play">&#9654;</button>' +
+      '<div class="fbody"><div class="ftitle"><span></span><time></time></div>' +
+      '<div class="fbar"><i></i></div></div>';
+    row.querySelector(".ftitle span").textContent = meta.title;
+    const f = { meta: meta, row: row, audio: null,
+                btn: row.querySelector(".fplay"),
+                bar: row.querySelector(".fbar i"),
+                time: row.querySelector("time") };
+    f.time.textContent = fullTime(meta.dur);
+    f.btn.addEventListener("click", function(e){ e.stopPropagation(); toggleFull(f, i); });
+    row.addEventListener("click", function(){ toggleFull(f, i); });
+    row.querySelector(".fbar").addEventListener("click", function(e){
+      e.stopPropagation();
+      const a = makeFull(f, i), r = this.getBoundingClientRect();
+      a.currentTime = clamp((e.clientX - r.left) / r.width, 0, 1) * (a.duration || meta.dur);
+      if (fullPlaying !== f) toggleFull(f, i);
+    });
+    FULLS.push(f);
+    sec.appendChild(row);
+  });
+  host.appendChild(sec);
+}
+
+let csrc = null, seqTok = 0, curId = null;
+function stopClip(){
+  if (csrc){ try{ csrc.onended = null; csrc.stop(); }catch(e){} csrc = null; }
+  if (curId){
+    const el = document.querySelector('.tile[data-id="' + curId + '"]');
+    if (el) el.classList.remove("now");
+    curId = null;
+  }
+}
+function stopAll(){ seqTok++; stopClip(); stopFull(); }
+
+function playClip(id, onEnd){
+  const it = BOARD.items[id];
+  if (!it || !bufBoard) { if (onEnd) onEnd(); return; }
+  stopClip();
+  curId = id;
+  const el = document.querySelector('.tile[data-id="' + id + '"]');
+  if (el) el.classList.add("now");
+  csrc = ctx.createBufferSource();
+  csrc.buffer = bufBoard;
+  csrc.connect(clipGain);
+  csrc.onended = function(){
+    if (el) el.classList.remove("now");
+    if (curId === id) curId = null;
+    if (onEnd) onEnd();
+  };
+  csrc.start(0, it.t + boardDelay, it.d + 0.05);
+  return el;
+}
+
+function playList(ids){
+  stopAll();
+  const tok = ++seqTok;
+  let i = 0;
+  (function next(){
+    if (tok !== seqTok || i >= ids.length) return;
+    const id = ids[i++];
+    const el = playClip(id, function(){
+      if (tok !== seqTok) return;
+      setTimeout(next, 130);
+    });
+    if (el) el.scrollIntoView({block:"center", behavior:"smooth"});
+  })();
+}
+
+function peakPath(p, w, h){
+  const mid = h/2, n = p.length, step = w/n, d = [];
+  for (let i=0;i<n;i++){
+    const y = Math.max(1.2, p[i]*mid*0.94);
+    const x = (i*step + step/2).toFixed(2);
+    d.push("M" + x + "," + (mid-y).toFixed(2) + "V" + (mid+y).toFixed(2));
+  }
+  return d.join("");
+}
+
+function visibleIds(){
+  return [...document.querySelectorAll(".tile")]
+    .filter(function(t){ return t.offsetParent !== null; })
+    .map(function(t){ return t.dataset.id; });
+}
+
+function drawBoard(){
+  const host = $("bsecs");
+  host.innerHTML = "";
+  for (const sec of BOARD.sections){
+    const s = document.createElement("section");
+    s.className = "sec";
+    const h = document.createElement("h3");
+    const pl = document.createElement("button");
+    pl.className = "pl"; pl.type = "button"; pl.innerHTML = "&#9654;";
+    pl.title = "Play this section";
+    pl.addEventListener("click", function(){
+      playList(sec.ids.filter(function(i){ return !$("board").classList.contains("favs") || favs.has(i); }));
+    });
+    h.appendChild(pl);
+    h.appendChild(document.createTextNode(sec.title));
+    s.appendChild(h);
+    if (sec.note){
+      const n = document.createElement("div");
+      n.className = "note"; n.textContent = sec.note;
+      s.appendChild(n);
+    }
+    const g = document.createElement("div");
+    g.className = "grid";
+    sec.ids.forEach(function(id, n){
+      const it = BOARD.items[id];
+      if (!it) return;
+      const t = document.createElement("div");
+      t.className = "tile" + (favs.has(id) ? " fav" : "");
+      t.dataset.id = id;
+      t.innerHTML =
+        '<svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="' +
+          peakPath(it.p, 100, 40) + '"></path></svg>' +
+        '<div class="meta"><span>' + (n+1) + '</span><span>' +
+          it.d.toFixed(1) + 's</span></div>' +
+        '<button class="fav" type="button" aria-label="Favourite">&#9733;</button>';
+      t.addEventListener("click", function(e){
+        if (e.target.classList.contains("fav")) return;
+        stopAll(); playClip(id);
+      });
+      t.querySelector(".fav").addEventListener("click", function(e){
+        e.stopPropagation();
+        if (favs.has(id)) favs.delete(id); else favs.add(id);
+        t.classList.toggle("fav", favs.has(id));
+        saveFavs(); applyFilter();
+      });
+      g.appendChild(t);
+    });
+    s.appendChild(g);
+    host.appendChild(s);
+  }
+  applyFilter();
+}
+
+function applyFilter(){
+  const only = $("board").classList.contains("favs");
+  let shownN = 0;
+  for (const t of document.querySelectorAll(".tile")){
+    const vis = !only || favs.has(t.dataset.id);
+    t.style.display = vis ? "" : "none";
+    if (vis) shownN++;
+  }
+  /* scoped to #bsecs - the whole-recording section has no tiles and would
+     otherwise be hidden as "empty" every time the filter runs */
+  for (const s of document.querySelectorAll("#bsecs .sec")){
+    const any = [...s.querySelectorAll(".tile")].some(function(t){ return t.style.display !== "none"; });
+    s.style.display = any ? "" : "none";
+  }
+  $("bfull").style.display = only ? "none" : "";     // whole takes are not favouritable
+  $("bempty").classList.toggle("show", only && shownN === 0);
+  $("bcount").textContent = only
+    ? shownN + " favourite" + (shownN === 1 ? "" : "s")
+    : shownN + " sounds";
+}
+
+function showBoard(on){
+  document.body.classList.toggle("board", on);
+  $("board").classList.toggle("on", on);
+  if (on){
+    running = false;
+    for (const k in L) L[k].classList.remove("on");
+    $("chip").className = "";
+    $("waveWrap").classList.remove("on");
+    pOn = false; pcx.clearRect(0,0,innerWidth,innerHeight);
+    $("board").scrollTop = 0;
+    if (ctx) musicTo(M_BOARD, 2.0);
+  } else {
+    stopAll();
+  }
+}
+
+$("go").addEventListener("click", start);
+$("again").addEventListener("click", start);
+$("toBoard").addEventListener("click", function(){ showBoard(true); });
+$("toEnd").addEventListener("click", function(){
+  document.body.classList.add("quick");
+  showBoard(false);
+  phase = ""; setPhase("end");
+  if (ctx) musicTo(M_END, 1.5);
+});
+$("ballPlay").addEventListener("click", function(){ playList(visibleIds()); });
+$("ballStop").addEventListener("click", stopAll);
+$("bfav").addEventListener("click", function(){
+  const on = !$("board").classList.contains("favs");
+  $("board").classList.toggle("favs", on);
+  this.classList.toggle("act", on);
+  stopAll(); applyFilter();
+});
+addEventListener("keydown", function(e){
+  if (e.code === "Escape"){ stopAll(); return; }
+  if (e.code === "Space" || e.code === "Enter"){
+    if (document.body.classList.contains("board")) return;
+    e.preventDefault();
+    if (!running || phase === "end") start();
+  }
+});
+addEventListener("resize", function(){ sizeWave(); sizeParts(); });
+$("hint").textContent = "Sound on · " + Math.round(T_END + HOLD) + " seconds";
+sizeWave(); sizeParts(); fillEnd(); buildFull(); drawBoard();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
